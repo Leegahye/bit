@@ -3,6 +3,8 @@
  * -byte 끼리의 연산결과도 int
  * -short 끼리의 연산결과 int
  * -long 끼리의 연산결과 long
+ * -서로다른 타입의 데이터를 연산할 때 다음의 규칙에 따라 데이터 형을 일치시켜서 연산을 수행한다.
+ *  (암시적 형변환)
  * -{byte,short,char}>int>long>float>double
  */
 package exam.basic;
