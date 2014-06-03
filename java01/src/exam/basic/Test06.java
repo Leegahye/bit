@@ -33,6 +33,29 @@ public class Test06 {
 		
 		float f1 = 3.14f;
 		float f2 = f1+l1;//l1 -> float(실수가 우선)
+		
+		double d1 = 3.14;
+		double d2 = b1 + s1 +i1 + l1 + f1 + d1;
+		/*
+		 * 자바 컴파일러는 위의 명령을 다음과 같이 변경한다.
+		 * int t1 = b1;
+		 * int t2 = s1;
+		 * int t3 = t1+t2;
+		 * int t4 = t3 + i1;
+		 * long t5 = t4;
+		 * long t6 = t5+l1;
+		 * float t7 = t6;
+		 * float t8 = t6 + f1;
+		 * double t9 = t8;
+		 * double t10 = t9+d1;
+		 */
+		/*
+		 * Implicit Type Conversion(암시적 형변환)
+		 * 서로다른 두 타입의 값을 연산하기 위해서 
+		 * 둘 중 하나의 값을 다른 쪽에 맞추는 것.
+		 * -암시적 형변환의 규칙
+		 * 	 {byte,short,char} > int > long > float > double
+		 */
 	}
 
 }
