@@ -28,8 +28,8 @@ package exam.basic;
 
 public class Control01
 {
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args){
+		
 		/* 테스트 1 : 간단한 조건문
 		int a = 3;
 		if( a > 4)
