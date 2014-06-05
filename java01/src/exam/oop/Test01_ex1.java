@@ -8,14 +8,16 @@ package exam.oop;
 import java.util.Scanner;
 
 //1.새 데이터 타입 정의:Address
-class Person{
+
+//클래스 정의를 별도의 소스파일로 분리하였음.
+/*class Person{
 	String name;
 	String grade;
 	String phoneNum;
 	String email;
 	String company;
 	
-}
+}*/
 public class Test01_ex1 {
 	
 	public static void main(String[] args) {
