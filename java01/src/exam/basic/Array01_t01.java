@@ -7,7 +7,9 @@ package exam.basic;
 import java.util.Scanner;
 
 public class Array01_t01 {
-	public static void main(String[] args) {
+
+	
+	public static void main07(String[] args) {
 
 		String[] name = new String[100];
 		int[] kor = new int[100];
