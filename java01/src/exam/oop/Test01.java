@@ -21,7 +21,43 @@ class Score{
 }
 public class Test01 {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args){
+		Score[] score = new Score[3];
+		
+		Scanner sc = new Scanner(System.in);
+		Score s;
+		AAA:
+		while(true){
+			for(int i = 0; i<score.length; i++){
+				s=new Score();
+				
+				System.out.print("이름 : ");
+				s.name = sc.nextLine();		
+				
+				System.out.print("국어 : ");
+				s.kor = Integer.parseInt(sc.nextLine());
+				
+				System.out.print("영어 : ");
+				s.eng= Integer.parseInt(sc.nextLine());
+				
+				score[i] = s;
+			}	
+			for(int i = 0; i<score.length; i++){
+				s = score[i];
+				System.out.println(s.name + ","+s.kor+","+s.eng);
+			}
+		
+		 System.out.print("계속 입력하시겠습니까?(y/n)");
+			if(sc.nextLine().equals("n")){
+				break;
+			}else{
+				continue AAA;
+			}
+		}
+		
+}
+
+	public static void main03(String[] args) {
 		Score[] score = new Score[100];
 		int count = 0;
 		
