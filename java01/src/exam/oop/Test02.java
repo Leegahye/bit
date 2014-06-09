@@ -5,7 +5,6 @@
  *   인스턴스 변수의 값을 초기화
  * -문법 : 리턴타입 없다. 함수이름이 클래스이름과 같다.
  *   클래스명(){...}
- *   
  */
 package exam.oop;
 
@@ -29,7 +28,13 @@ public class Test02 {
 		//Score2 s = new Score2(); //Score2에는 기본생성자가 없기때문에 오류!
 		System.out.println(s2.tot);
 		System.out.println(s2.avg);
-		
   }
-	
 }
+
+
+
+
+
+
+
+
