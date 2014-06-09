@@ -38,6 +38,8 @@ public class Test01_ex2 {
 			return true;
 	}
 	
+	//Person클래스의 인스턴스의 "주소"를 리턴하는 함수!!!!
+	//8개의 데이터타입 외에 모든것은 주소를 주고받는 것이다.
 	static Person inputPerson(Scanner sc){
 		
 		Person p = new Person();
@@ -53,6 +55,7 @@ public class Test01_ex2 {
 		p.company = sc.nextLine();
 		
 		return p;
+		//***인스턴스의 "주소"를 리턴한다.(절대 인스턴스를 리턴하는것이 아님)***
 	}
 	
 	static void printPerson(Person p){

@@ -19,6 +19,7 @@ class Score{
   int tot;
 	float avg;
 }
+
 public class Test01 {
 	
 	public static void main(String[] args){
