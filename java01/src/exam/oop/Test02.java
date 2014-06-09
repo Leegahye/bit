@@ -22,7 +22,13 @@ public class Test02 {
 		s1.avg = s1.tot/3.0f;*/
 		
 		//생성자 사용후
-		Score2 s2 = new Score2("홍길동",100,100,100);		
+		//생성자는 인스턴스를 생성할 대 바로 호출해야 한다. 나중에 따로 호출할 수 없다.
+		//생성자를 호출할 대 생성자에 선언된 파라미터 값을 반드시 넘겨야 한다.
+		//생성자를 호출하든 메서드를 호출하든 값을 넘길 때 반드시 파라미터 순서를 지켜야 한다.
+		Score2 s2 = new Score2("홍길동",100,100,100);
+		//Score2 s = new Score2(); //Score2에는 기본생성자가 없기때문에 오류!
+		System.out.println(s2.tot);
+		System.out.println(s2.avg);
 		
   }
 	
