@@ -13,18 +13,17 @@ public class Test02 {
 	public static void main(String[] args) {
 		
 		//생성자 사용전
-		Score2 s1 = new Score2();
+		/*Score2 s1 = new Score2();
 		s1.name = "홍길동";
 		s1.kor = 100;
 		s1.eng = 100;
 		s1.mat = 100;
 		s1.tot = s1.kor+s1.eng+s1.mat;
-		s1.avg = s1.tot/3.0f;
+		s1.avg = s1.tot/3.0f;*/
 		
 		//생성자 사용후
-		//Score s2 = new Score("홍길동",100,100,100);		
+		Score2 s2 = new Score2("홍길동",100,100,100);		
 		
-	  
   }
 	
 }
