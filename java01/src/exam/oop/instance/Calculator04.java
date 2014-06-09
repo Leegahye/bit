@@ -14,6 +14,7 @@ public class Calculator04 {
 		this.result = value;
 	}
 	public void plus(/*Calculator04 this,*/int value){
+		//Calculator02.result = Calculator02.result+value;
 		this.result += value;
 	}
 	public void minus(/*Calculator04 this,*/int value){
