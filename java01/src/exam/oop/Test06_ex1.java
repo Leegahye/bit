@@ -1,8 +1,8 @@
 package exam.oop;
 
 class A{
-	static int value = 100;
 	
+	static int value = 100;
 	static{
 		System.out.println("A : vlaue = "+value);
 		System.out.println("A : B.value = "+B.value);
@@ -10,6 +10,7 @@ class A{
 	}
 }
 class B{
+	
 	static int value = 100;
 	static{
 		System.out.println("B : value = "+value);

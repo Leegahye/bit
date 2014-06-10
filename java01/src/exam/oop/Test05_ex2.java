@@ -6,7 +6,6 @@
  * - mutable객체이다
  * - 값을 변경할 수 있다.
  */ 
-
 package exam.oop;
 
 public class Test05_ex2 {
