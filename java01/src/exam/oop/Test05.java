@@ -11,7 +11,6 @@
  *  - 메서드 호출 시 로컬변수가 준비된다.
  *  - 메서드 호출이 끝나면 로컬변수는 제거된다.
  */ 
-//////
 package exam.oop;
 
 public class Test05 {
@@ -19,9 +18,7 @@ public class Test05 {
 		int v = 100;
 		m1(v);
 		m2(v);
-	  
-  }
-	
+	}
 	public static int m1(int v){
 		int result = v*2;
 		return result;
