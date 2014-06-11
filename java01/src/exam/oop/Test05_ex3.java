@@ -32,6 +32,7 @@ public class Test05_ex3 {
 	if(s3 == s4){
 		System.out.println("s3 == s4");
 	}
+	
 	String s5 = s1.intern();
 	
 	if(s3 == s5){
