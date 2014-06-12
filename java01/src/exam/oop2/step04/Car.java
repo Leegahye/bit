@@ -6,7 +6,7 @@ package exam.oop2.step04;
 
 public class Car {
 	String model;//모델명
-	int cc;//배기량
+	int cc = 1000;//배기량
 	
 
 }
