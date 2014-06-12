@@ -15,7 +15,7 @@ public class CarTest {
 		
 		c3.model = "코란도 스포츠";
 		c3.cc = 3000;
-		c3.weight = 800;
+		//c3.weight = 800;
 		c3.capacity = 4;
 		
 		System.out.println(c1.model);

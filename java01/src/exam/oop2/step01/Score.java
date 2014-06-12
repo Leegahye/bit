@@ -54,7 +54,5 @@ public class Score {
 		this.mat = mat;
 		this.tot = kor+eng+mat;
 		this.avg = this.tot/3.0f;
-	}
-	
-	
+	}	
 }
