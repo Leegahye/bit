@@ -1,14 +1,13 @@
 package exam.oop3.step01;
+/*
+ * ScoreFrame 사용
+ *  - 상속 기법을 이용하여 Frame 기능을 확장함.
+ */
 
-import java.awt.Frame;
+public class ScoreApp{
 
-public class ScoreApp {
 	public static void main(String[] args) {
-		Frame f = new Frame();
-		f.setTitle("비트 성적관리 시스템");
-		f.setSize(400, 300);
-		f.addWindowListener(new MyWindowListener());
+		ScoreFrame f = new ScoreFrame();
 		f.setVisible(true);
 	}
-
 }
