@@ -12,9 +12,9 @@ public class ScoreApp02 {
 		f.setTitle("비트 성적관리 시스템");
 		f.setSize(400, 300);
 		f.addWindowListener(new MyWindowListener());
-		f.add(new Label("이름"));
-		f.add(new TextField(20));
-		f.add(new Button("추가"));
+		//f.add(new Label("이름"));
+		//f.add(new TextField(20));
+		//f.add(new Button("추가"));
 		f.setVisible(true);
 		
 	}
