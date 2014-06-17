@@ -1,8 +1,9 @@
-/*package exam.oop3.step03;
+package exam.oop3.step03;
 
- 성적 등록 폼 만들기
+/* 성적 등록 폼 만들기
  * - Panel 사용 
  *   > 여러 개의 UI 컴포넌트를 묶을 때 사용하는 윈도우 
+ *   */
  
 
 import java.awt.Button;
@@ -67,16 +68,16 @@ public class ScoreFrame  extends Frame {
 		return panel;
 	}
 
-}*/
+}
 
 
 //과제한것---------------------------------------------------------------
-package exam.oop3.step03;
-/*
+/*package exam.oop3.step03;
+
  * 성적 등록 폼 만들기
  *  - panel 사용
  *   > 여러개의 UI컴포넌트를 묶을 때 사용하는 윈도우
- */
+ 
 
 import java.awt.Button;
 import java.awt.Dimension;
@@ -127,13 +128,10 @@ public class ScoreFrame  extends Frame {
 		
 		p1.add(label);
 		p1.add(tfName);
-		
 		p2.add(label2);
 		p2.add(tfKor);
-		
 		p3.add(label3);
 		p3.add(tfEng);
-		
 		p4.add(label4);
 		p4.add(tfMat);
 		
@@ -162,7 +160,13 @@ public class ScoreFrame  extends Frame {
 		});
 		this.add(btn);
 	}
-}
+}*/
+
+
+
+
+
+
 
 
 

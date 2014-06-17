@@ -1,7 +1,9 @@
 package exam.oop2.step12;
 
 public class Computer {
+	
 	Monitor monitor;
+	
 	public void start(){
 		monitor.display("부팅중.....");
 		monitor.display("메인화면");

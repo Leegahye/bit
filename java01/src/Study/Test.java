@@ -1,29 +1,31 @@
 package Study;
 
-class A{
-	 private int a = 10;
-	 int b = 20;    //default
-	 protected int c = 30;
-	 public int d = 40;
-	 public int getA(){  //private 변수를 사용하기 위한 변수
-		 return a;
-	 }
+/*class Test{ 
+	 int a=10; 
+	class Joo{ 
+	int b=20; 
+	public void joo(){ 
+		System.out.println("Joo 클래스가 InstanceClass 입니다."); 
+	} 
+} 
+	public static void main(String[] args){
+	 Test t=new Test(); 
+	 Test.Joo j=t.new Joo(); 
+	 j.joo(); 
+	} 
+} 
+*/
+interface A{
+	int num = 20;
+	public void m();
+}
+class Test{   
+	public static void main(String[] args) {
+		A a = new A(){
+			public void m(){
+				System.out.println("aa");
+			}
+		};
+		a.m();
 	}
-	class Test {
-		 private int a = 1;
-		 int b = 2;
-		 protected int c = 3;
-		 public int d = 4;
-
-	 public static void main(String[] args)  {
-	  A a = new A();
-	  Test t = new Test();
-	  
-	  System.out.println("private : " + a.getA());
-	  System.out.println("default : " + a.b); 
-	  System.out.println("private : " + t.a);
-	  System.out.println("protected : " + t.c);
-	 }
-	}
-
-    
+}

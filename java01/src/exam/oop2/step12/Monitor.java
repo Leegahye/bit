@@ -7,12 +7,9 @@ public class Monitor {
 		System.out.println(contents);
 		System.out.println("---------------------------");
 	}
-
 	public void mute() {
 		for(int i=0; i<25; i++){
 			System.out.println();
 		}
-		
 	}
-
 }
