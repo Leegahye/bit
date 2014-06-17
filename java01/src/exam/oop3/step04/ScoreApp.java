@@ -1,4 +1,4 @@
-package exam.oop3.step03;
+package exam.oop3.step04;
 
 /* ScoreFrame 사용
  * - 상속 기법을 이용하여 Frame 기능을 확장함.

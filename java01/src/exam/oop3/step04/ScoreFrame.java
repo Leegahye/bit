@@ -1,4 +1,4 @@
-package exam.oop3.step03;
+package exam.oop3.step04;
 /* [<],[>]버튼 추가 및 이벤트 처리
  * - Frame 클래스가 ActionListener역할을 겸한다.
  * - OOP입장에서는 바람직하지 않다 => Low coupling, High cohesion(하나의 클래스는 하나의 역할을 수행한다)

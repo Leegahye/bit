@@ -1,14 +1,6 @@
 package exam.oop3.step03;
 /* [<],[>]버튼 추가 및 이벤트 처리
- * - Frame 클래스가 ActionListener역할을 겸한다.
- * - OOP입장에서는 바람직하지 않다 => Low coupling, High cohesion(하나의 클래스는 하나의 역할을 수행한다)
- * 
- * ActionListener 규칙
- *  - 버튼을 클릭 이벤트를 처리하는 규칙
- *  - TextField의 엔터키 이벤트를 처리하는 규칙
- *  
- * 버튼에 Action 이름을 설정한 후 이벤트 처리시에 사용한다.
- * 
+ * 하나의 이너 클래스가 모든 버튼의 이벤트 처리
  */
 import java.awt.Button;
 import java.awt.Component;
@@ -23,16 +15,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class ScoreFrame  extends Frame implements ActionListener{
+public class ScoreFrame04  extends Frame {
 	
 	private TextField tfName = new TextField(20);
 	private TextField tfKor = new TextField(5);
 	private TextField tfEng = new TextField(5);
 	private TextField tfMat = new TextField(5);
 	
+	private Button btnAdd;
+	private Button btnPrevious;
+	private Button btnNext;
+	
+	//member inner class
+	class MyActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			//추가버튼, <버튼, >버튼
-			if(e.getActionCommand().equals("scoreAdd")){//이벤트가 발생된 객체가 btnAdd라면
+			if(e.getSource() == btnAdd ){//이벤트가 발생된 객체가 btnAdd라면
 				Score score = new Score();
 				score.setName(tfName.getText());
 				score.setKor(Integer.parseInt(tfKor.getText()));
@@ -42,21 +40,23 @@ public class ScoreFrame  extends Frame implements ActionListener{
 				scoreDao.insert(score);
 				clearForm();
 				
-			} else if(e.getActionCommand().equals("scorePrevious")){//이벤트가 발생된 객체가 btnPrevious라면
+			} else if(e.getSource() == btnPrevious){//이벤트가 발생된 객체가 btnPrevious라면
 				Score currScore = scoreDao.previousScore();
 				if(currScore == null){
 					System.out.println("가져올 데이터가 없습니다!");
 				}else{
 					setForm(currScore);
 				}
-			} else if(e.getActionCommand().equals("scoreNext")){//이벤트가 발생된 객체가 btnNext라면
+			} else if(e.getSource() == btnNext ){//이벤트가 발생된 객체가 btnNext라면
 				System.out.println("눌럿다!!!!! >>>>>>");
 				
 			}
+			
 		}
+	}
 	ScoreDao scoreDao;
 	
-	public ScoreFrame() {
+	public ScoreFrame04() {
 		this.setTitle("비트 성적관리 시스템");
 		this.setSize(400, 300);
 		
@@ -74,20 +74,19 @@ public class ScoreFrame  extends Frame implements ActionListener{
 		
 		Panel toolbar = new Panel(new FlowLayout(FlowLayout.LEFT));
 		
-		Button btn = createToolbarButton("추가");
-		btn.setActionCommand("scoreAdd"); //버튼에 액션 이름 설정
-		btn.addActionListener(this);
-		toolbar.add(btn);
+		MyActionListener btnListener = new MyActionListener();
 		
-		btn = createToolbarButton("<");
-		btn.setActionCommand("scorePrevious"); //버튼에 액션 이름 설정
-		btn.addActionListener(this);
-		toolbar.add(btn);
+		btnAdd = createToolbarButton("추가");
+		btnAdd.addActionListener(btnListener);
+		toolbar.add(btnAdd);
 		
-		btn = createToolbarButton(">");
-		btn.setActionCommand("scoreNext"); //버튼에 액션 이름 설정
-		btn.addActionListener(this);
-		toolbar.add(btn);
+		btnPrevious = createToolbarButton("<");
+		btnAdd.addActionListener(btnListener);
+		toolbar.add(btnPrevious);
+		
+		btnNext = createToolbarButton(">");
+		btnNext.addActionListener(btnListener);
+		toolbar.add(btnNext);
 		
 		this.add(toolbar);
 	}
