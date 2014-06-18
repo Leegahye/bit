@@ -28,7 +28,7 @@ public class CollectionTest03 {
 	}
 	public static void displayValuesFromMap(HashMap map){
 		System.out.println("--------------------");
-		Iterator iterator = map.keySet().iterator();
+		Iterator iterator = map.values().iterator();
 	
 		String value;
 		while(iterator.hasNext()){
@@ -38,7 +38,7 @@ public class CollectionTest03 {
 	}
 	public static void displayKeysFromMap(HashMap map){
 		System.out.println("--------------------");
-		Iterator iterator = map.keySet().iterator();
+		Iterator iterator = map.keySet().iterator();//키 목록을 꺼냄
 		
 		String key;
 		while(iterator.hasNext()){
@@ -55,7 +55,7 @@ public class CollectionTest03 {
 		
 		Entry entry;
 		while(iterator.hasNext()){
-			entry = (Entry)iterator.next();
+			entry = (Entry)iterator.next(); //next는 꺼내는 메서드
 			System.out.println(entry.getKey()+":"+entry.getValue());
 			
 		}
