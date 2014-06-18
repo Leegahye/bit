@@ -1,37 +1,39 @@
-/*
- * Entity 역할
- *  - 데이터의 저장과 조회, 변경, 삭제 관리
- *  - 데이터의 지속성(Persistence) 관리
- *  - Data Access Object(DAO)
+/* 
+ * 배열 대신 ArrayList 적용 
  */
 package exam.oop3.step04;
 
+import java.util.ArrayList;
+
 public class ScoreDao {
-	Score[] scores = new Score[100];
-	int size;
+	ArrayList<Score> scores = new ArrayList<Score>();
+	
 	int cursor;
+	
 	public ScoreDao(){
-		//size = 0;
+		
 	}
-	public void insert(Score score){
-		if(size<scores.length){
-			scores[size++] = score;
-			cursor = size;
-		}
+	
+	public void insert(Score score) {
+			scores.add(score);
+			cursor = scores.size();
 	}
-	public Score nextScore(){
-		if(cursor >= size || cursor >= (scores.length - 1))
+	
+	public Score nextScore() {
+		if (cursor >= scores.size() - 1) 
 			return null;
 		
-		return scores[++cursor];
+		return scores.get(++cursor);
 	}
-	public Score previousScore(){
-		if(cursor <= 0)
+	
+	public Score previousScore() {
+		if (cursor <= 0) 
 			return null;
-		
-		return scores[--cursor];
+		return scores.get(--cursor);
 	}
-	public Score[] toArray(){
-		return this.scores;
+	
+	public Object[] toArray() {
+		return this.scores.toArray();
 	}
 }
+
