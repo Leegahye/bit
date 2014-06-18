@@ -3,8 +3,8 @@ package exam.oop3.step04;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-/*
- * Collection API
+
+ /* Collection API
  *  - 값 목록을 다루는 객체
  *  
  * HashSet
@@ -12,6 +12,7 @@ import java.util.HashSet;
  *  - 인덱스로 값을 조회할 수 있다.
  *  - 인스턴스를 중복 저장하지 않는다.
  */
+ 
 public class CollectionTest01 {
 
 	public static void main(String[] args) {
@@ -43,5 +44,5 @@ public class CollectionTest01 {
 			System.out.println(value);
 		}
 	}
- 
 }
+

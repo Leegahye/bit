@@ -2,14 +2,14 @@ package exam.oop3.step04;
 
 import java.util.ArrayList;
 
-/*
- * Collection API
+/* Collection API
  *  - 값 목록을 다루는 객체
  *  
  * ArrayList
  *  - 인스턴스의 주소들을 배열 형태로 다룬다.
  *  - 인덱스로 값을 조회할 수 있다.
  */
+ 
 public class CollectionTest00 {
 
 	public static void main(String[] args) {
