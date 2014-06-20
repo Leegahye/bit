@@ -44,7 +44,7 @@ public class ScoreDao {
     FileWriter out = new FileWriter(data);
     
     for (Score score : scores) {
-    	out.write(score.getName()+","+score.getKor()+","+score.getEng()+","+score.getMat()+"\n");
+    	out.write(score.getName()+","+score.getKor()+","+score.getEng()+","+score.getMath()+"\n");
     }
     out.close(); //Write한 다음에 꼭 닫아라
   }
@@ -71,7 +71,7 @@ public void load()  {
 			score.setName(cols[0]);
 			score.setKor(Integer.parseInt(cols[1]));
 			score.setEng(Integer.parseInt(cols[1]));
-			score.setMat(Integer.parseInt(cols[1]));
+			score.setMath(Integer.parseInt(cols[1]));
 			
 			this.insert(score);
 		}
@@ -84,7 +84,6 @@ public void load()  {
 }
 
 }
-
 
 
 

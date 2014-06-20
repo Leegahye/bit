@@ -28,10 +28,13 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 public class ScoreFrame  extends Frame implements ActionListener {
+	
+
+	  private ScoreDao scoreDao;
   private TextField tfName = new TextField(20);
-  private TextField tfKor = new TextField(5);
-  private TextField tfEng = new TextField(5);
-  private TextField tfMath = new TextField(5);
+  private TextField tfKor = new TextField(10);
+  private TextField tfEng = new TextField(10);
+  private TextField tfMath = new TextField(10);
 
   public void actionPerformed(ActionEvent e) {
     // 추가 버튼, < 버튼, > 버튼
@@ -40,7 +43,7 @@ public class ScoreFrame  extends Frame implements ActionListener {
       score.setName(tfName.getText());
       score.setKor(Integer.parseInt(tfKor.getText()));
       score.setEng(Integer.parseInt(tfEng.getText()));
-      score.setMat(Integer.parseInt(tfMath.getText()));
+      score.setMath(Integer.parseInt(tfMath.getText()));
 
       scoreDao.insert(score);
 
@@ -63,12 +66,11 @@ public class ScoreFrame  extends Frame implements ActionListener {
 
   }
 
-  private ScoreDao scoreDao;
 
   public ScoreFrame() {
-	
+
     this.setTitle("비트 성적관리 시스템");
-    this.setSize(400, 300);
+    this.setSize(200, 300);
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         try {
@@ -142,26 +144,8 @@ public class ScoreFrame  extends Frame implements ActionListener {
     tfName.setText(score.getName());
     tfKor.setText(Integer.toString(score.getKor()));
     tfEng.setText(Integer.toString(score.getEng()));
-    tfMath.setText(Integer.toString(score.getMat()));
+    tfMath.setText(Integer.toString(score.getMath()));
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,49 +1,52 @@
-/*
- * Entity역할
- *  - 성적정보를 표현하는 역할 => Value Object(VO)
+/* Entity 역할
+ * - 성적 정보를 표현하는 역할 => Value Object(VO)
  */
 package exam.oop3.step05;
 
-public class Score {
+public class Score  {
 	private String name;
 	private int kor;
-	private int mat;
 	private int eng;
-    private int tot;
-	private float avg;
+	private int math;
+	private int total;
+	private float average;
 	
-	public Score(){}
-		
-	public Score(String name, int kor, int eng, int mat){
+	public Score() {}
+	
+	public Score(String name, int kor, int eng, int math) {
 		this.name = name;
 		this.kor = kor;
 		this.eng = eng;
-		this.mat = mat;
-		this.tot = kor+eng+mat;
-		this.avg = this.tot/3.0f;
+		this.math = math;
+		this.total = kor + eng + math;
+		this.average = this.total / 3.0f;
 	}
 	
-	private void compute(){
-		this.tot = this.kor+this.eng+this.mat;
-		this.avg = this.tot/3.0f; //암시적 형변환
-	}
-	public int getTotal(){
-		return this.tot;
-	}
-	public float getAverage(){
-		return this.avg;
+	private void compute() {
+		this.total = this.kor + this.eng + this.math;
+		this.average = this.total / 3.0f;
 	}
 	
-	public void setKor(int kor){
+	public int getTotal() {
+		return this.total;
+	}
+	
+	public float getAverage() {
+		return this.average;
+	}
+	
+	public void setKor(int kor) {
 		this.kor = kor;
 		this.compute();
 	}
-	public void setEng(int eng){
+	
+	public void setEng(int eng) {
 		this.eng = eng;
 		this.compute();
 	}
-	public void setMat(int mat){
-		this.mat = mat;
+	
+	public void setMath(int math) {
+		this.math = math;
 		this.compute();
 	}
 
@@ -59,12 +62,14 @@ public class Score {
 		return kor;
 	}
 
-	public int getMat() {
-		return mat;
-	}
-
 	public int getEng() {
 		return eng;
 	}
+
+	public int getMath() {
+		return math;
+	}
+	
 	
 }
+
