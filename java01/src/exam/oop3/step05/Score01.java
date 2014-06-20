@@ -3,28 +3,17 @@
  */
 package exam.oop3.step05;
 
-import java.io.Serializable;
-
-/* transient
- * - 지속성(Persistence)을 가질 필요가 없는 데이터에 대해 표시한다.
- * - 저장할 필요가 없는 데이터에 대해 지정한다.
- * - 시리얼 데이터로 출력되지 않는다.
- * - 다른 인스턴스 변수로 계산되는 값은 시리얼 데이터로 출력하지 않는다.
- */
-
-public class Score implements Serializable  {
-  private static final long serialVersionUID = 1L;
-
-  private String name;
+public class Score01  {
+	private String name;
 	private int kor;
 	private int eng;
 	private int math;
-	transient private int total;
-	transient private float average;
+	private int total;
+	private float average;
 	
-	public Score() {}
+	public Score01() {}
 	
-	public Score(String name, int kor, int eng, int math) {
+	public Score01(String name, int kor, int eng, int math) {
 		this.name = name;
 		this.kor = kor;
 		this.eng = eng;
@@ -33,7 +22,7 @@ public class Score implements Serializable  {
 		this.average = this.total / 3.0f;
 	}
 	
-	public void compute() {
+	private void compute() {
 		this.total = this.kor + this.eng + this.math;
 		this.average = this.total / 3.0f;
 	}

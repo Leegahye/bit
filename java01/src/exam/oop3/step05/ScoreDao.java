@@ -44,46 +44,53 @@ public class ScoreDao {
     FileWriter out = new FileWriter(data);
     
     for (Score score : scores) {
-    	out.write(score.getName()+","+score.getKor()+","+score.getEng()+","+score.getMath()+"\n");
+      out.write(score.getName() + "," + 
+          score.getKor() + "," +
+          score.getEng() + "," +
+          score.getMath() + "\n");
     }
-    out.close(); //Write한 다음에 꼭 닫아라
+    
+    out.close();
   }
 
-public void load()  {
-	try{
-		File data = new File("test.csv");
-		FileReader in = new FileReader(data);	
-		StringBuffer buf = new StringBuffer(); //mutable객체
-		int ch;
-		while((ch = in.read()) != -1){
-			buf.append((char)ch);
-		}
-		in.close();//항상 파일을 열었으면 닫아야 함.
-		String contents = buf.toString();
-		String[] rows = contents.split("\n");
-		String[] cols = null;
-		Score score = null;
-		for(String row : rows){
-			cols = row.split(",");
-			//Score 인스턴스 생성 => 값 할당 => ArrayList에 보관
-			score = new Score();
-			
-			score.setName(cols[0]);
-			score.setKor(Integer.parseInt(cols[1]));
-			score.setEng(Integer.parseInt(cols[1]));
-			score.setMath(Integer.parseInt(cols[1]));
-			
-			this.insert(score);
-		}
-	}catch(FileNotFoundException ex){
-		System.out.println("file not found!");
-	}catch(IOException ex){
-		System.out.println("read error!");
-	}
-	
-}
+  public void load() {
+    try {
+      File data = new File("test.csv");
+      FileReader in = new FileReader(data);
+      StringBuffer buf = new StringBuffer(); // mutable Object
+      int ch;
+      while ((ch = in.read()) != -1) {
+        buf.append((char)ch);
+      }
+      in.close();
+      
+      String contents = buf.toString();
+      String[] rows = contents.split("\n");
+      String[] cols = null;
+      Score score = null;
+      for (String row : rows) {
+        cols = row.split(",");
+        
+        //Score 인스턴스 생성 -> 값 할당 -> ArrayList에 보관 
+        score = new Score();
+        
+        score.setName(cols[0]);
+        score.setKor(Integer.parseInt(cols[1]));
+        score.setEng(Integer.parseInt(cols[2]));
+        score.setMath(Integer.parseInt(cols[3]));
+        
+        this.insert(score);
+      }
+    } catch (FileNotFoundException ex) {
+      System.out.println("file not found!");
+    } catch (IOException ex) {
+      System.out.println("read error!");
+    }
+    
+  }
 
 }
+
 
 
 
