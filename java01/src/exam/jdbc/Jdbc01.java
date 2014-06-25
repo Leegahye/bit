@@ -12,7 +12,7 @@ import java.sql.Statement;
  * - 역할자를 "객체"라 부름 
  */
 
-public class Jdbc01 {
+public class Jdbc01 { 
 
   public static void main(String[] args) throws Exception {
     // 1. Driver 역할자(객체)를 로딩
