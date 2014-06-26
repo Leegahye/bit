@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class ScoreDao {
 	
-	static int cursor;
+	int cursor;
 	Connection con;
 	Statement stmt;
 	ResultSet rs;
@@ -75,6 +75,8 @@ public class ScoreDao {
 		    score.setKor(rs.getInt("kor"));
 		    score.setEng(rs.getInt("eng"));
 		    score.setMath(rs.getInt("math"));
+		    cursor = rs.getInt("sno");
+			  
 		   
 		    rs.close();
 		    stmt.close();
@@ -105,6 +107,7 @@ public class ScoreDao {
 		   score.setKor(rs.getInt("kor"));
 		   score.setEng(rs.getInt("eng"));
 		   score.setMath(rs.getInt("math"));
+		   cursor = rs.getInt("sno");
 		   
 		    rs.close();
 		    stmt.close();
