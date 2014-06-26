@@ -23,9 +23,9 @@ public class ScoreDao {
 		    if(rs.next()){
 		    	 cursor = rs.getInt("sno")+1;
 		    }
-		    rs.close();
-		    stmt.close();
-		    con.close();
+		   rs.close();
+		   stmt.close();
+		   con.close();
 	  } catch(Exception e){
 		  e.printStackTrace();
 	  }
