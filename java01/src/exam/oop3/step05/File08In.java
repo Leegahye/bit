@@ -10,7 +10,7 @@ public class File08In {
     ObjectInputStream in2 = new ObjectInputStream(in);
     
     Score score = (Score)in2.readObject();
-    //score.compute();
+    score.compute();
     
     in2.close();
     in.close();

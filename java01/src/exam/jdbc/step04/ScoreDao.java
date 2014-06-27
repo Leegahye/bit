@@ -1,10 +1,16 @@
-/* DbConnectionPool 적용
- * - 외부에서 DB 커넥션 관리자를 주입 받는다.
- * - 의존 객체 주입 => Dependency Injection (의존성 주입)
+/* PreparedStatement 적용 
+ * - SQL 템플릿을 정의한 후, IN-PARAMETER에 값을 넣는 방법
+ * - 장점
+ *   1) SQL문이 간결해진다.
+ *   2) IN-PARAMETER를 통해 값을 입력하기 때문에 SQL문을 조작할 수 없다.
+ *   3) 바이너리 데이터를 입력할 수 있다.
+ *   4) 반복하여 작업을 수행할 때 속도가 빠르다.
+ *      => 이유: SQL문을 미리 만들어 놓고 값만 입력하여 실행하기 때문이다.
  */
-package exam.jdbc.step03;
+package exam.jdbc.step04;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,7 +26,7 @@ public class ScoreDao {
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement(); //DBMS에 SQL 전달
+      stmt = con.createStatement();
       
       rs = stmt.executeQuery(
           "select sno, name, kor, eng, math "
@@ -52,20 +58,24 @@ public class ScoreDao {
 
   public void insert(Score score) {
     Connection con = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
     ResultSet rs = null; // 자동 생성된 PK 값을 가져오는 역할자
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement();
+
+      stmt = con.prepareStatement(
+          "insert into scores (name, kor, eng, math)" +
+          " values(?, ?, ?, ?)", 
+          Statement.RETURN_GENERATED_KEYS);
+
+      // IN-PARAMETER의 타입에 따라 setXxxx(인덱스, 값) 호출한다.
+      stmt.setString(1, score.getName()); 
+      stmt.setInt(2, score.getKor());
+      stmt.setInt(3, score.getEng());
+      stmt.setInt(4, score.getMath());
       
-      int count = stmt.executeUpdate(
-          "insert into scores (name, kor, eng, math)"
-          + " values ('" + score.getName() + "'," + 
-              score.getKor() + "," + 
-              score.getEng() + "," + 
-              score.getMath() + ")", 
-          Statement.RETURN_GENERATED_KEYS); //
+      int count = stmt.executeUpdate();
       
       if (count == 1) {
         // 입력 성공 후에 자동 생성된 PK 값 가져오기
@@ -88,18 +98,20 @@ public class ScoreDao {
 
   public Score next() {
     Connection con = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
     ResultSet rs = null;
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement();
       
-      rs = stmt.executeQuery(
+      stmt = con.prepareStatement(
           "select sno, name, kor, eng, math" +
           " from scores " +
-          " where sno = ( select min(sno) from scores where sno > " +
-          currScore.getNo() + " )");
+          " where sno = (select min(sno) from scores where sno > ?)");
+      
+      stmt.setInt(1, currScore.getNo());
+      
+      rs = stmt.executeQuery();
       
       if (rs.next()) {
         currScore = new Score();
@@ -128,18 +140,19 @@ public class ScoreDao {
 
   public Score previous() {
     Connection con = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
     ResultSet rs = null;
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement();
-      
-      rs = stmt.executeQuery(
+      stmt = con.prepareStatement(
           "select sno, name, kor, eng, math" +
           " from scores " +
-          " where sno = ( select max(sno) from scores where sno < " +
-          currScore.getNo() + " )");
+          " where sno = (select max(sno) from scores where sno < ?)");
+      
+      stmt.setInt(1, currScore.getNo());
+      
+      rs = stmt.executeQuery();
       
       if (rs.next()) {
         currScore = new Score();
@@ -168,14 +181,16 @@ public class ScoreDao {
   
   public void delete() {
     Connection con = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement();
+      stmt = con.prepareStatement( 
+          "delete from scores where sno = ?");
       
-      int count = stmt.executeUpdate(
-          "delete from scores where sno = " + currScore.getNo());
+      stmt.setInt(1, currScore.getNo());
+      
+      int count = stmt.executeUpdate();
       
       if (count == 1) {
         // 정상적으로 삭제했으면 이전 데이터를 가져와야 한다.
@@ -201,19 +216,20 @@ public class ScoreDao {
 
   public void update() {
     Connection con = null;
-    Statement stmt = null;
+    PreparedStatement stmt = null;
     
     try {
       con = dbConnectionPool.getConnection();
-      stmt = con.createStatement();
+      stmt = con.prepareStatement(
+          "update scores set name=?, kor=?, eng=?, math=? where sno=?");
       
-      int count = stmt.executeUpdate(
-          "update scores set" +
-          " name = '" + currScore.getName() + "'," +
-          " kor = " + currScore.getKor() + "," +
-          " eng = " + currScore.getEng() + "," +
-          " math = " + currScore.getMath() + 
-          " where sno = " + currScore.getNo());
+      stmt.setString(1, currScore.getName());
+      stmt.setInt(2, currScore.getKor());
+      stmt.setInt(3, currScore.getEng());
+      stmt.setInt(4, currScore.getMath());
+      stmt.setInt(5, currScore.getNo());
+      
+      int count = stmt.executeUpdate();
       
       if (count == 1) {
         System.out.println("변경 성공!");

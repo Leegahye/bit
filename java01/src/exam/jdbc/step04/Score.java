@@ -1,7 +1,7 @@
 /* Entity 역할
  * - 성적 정보를 표현하는 역할 => Value Object(VO)
  */
-package exam.jdbc.step03;
+package exam.jdbc.step04;
 
 import java.io.Serializable;
 
@@ -30,8 +30,7 @@ public class Score implements Serializable  {
     this.kor = kor;
     this.eng = eng;
     this.math = math;
-    this.total = kor + eng + math;
-    this.average = this.total / 3.0f;
+    this.compute();
   }
 
   public void compute() {
@@ -89,6 +88,7 @@ public class Score implements Serializable  {
   public void setNo(int no) {
     this.no = no;
   }
+
 
 }
 

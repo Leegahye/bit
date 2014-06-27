@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class DbConnectionPool {
 	ArrayList<Connection> connections = new ArrayList<Connection>(); //connection을 저장할 list
-	
 	String driver;
 	String url;
 	String username;
