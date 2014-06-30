@@ -6,15 +6,12 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-
-import exam.net.ChatFrame;
 import exam.net.step02.Receiver;
 import exam.net.step02.Sender;
 
 public class Server {
 	public static void main(String[] args) throws Exception {
-		ChatFrame cf = new ChatFrame();
-		cf.setVisible(true);
+	
 		
 		Scanner keyScan = new Scanner(System.in);
 		

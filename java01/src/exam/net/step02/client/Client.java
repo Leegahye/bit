@@ -5,17 +5,12 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
-
-import exam.net.ChatFrame;
 import exam.net.step02.Receiver;
 import exam.net.step02.Sender;
 
 public class Client {
 
 	public static void main(String[] args) throws Exception {
-		
-		ChatFrame cf = new ChatFrame();
-		cf.setVisible(true);
 		
 		//System.in //키보드
 		//Scanner // 텍스트 입력 스트림을 다루는 객체
