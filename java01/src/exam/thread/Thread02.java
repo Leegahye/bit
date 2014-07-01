@@ -3,6 +3,7 @@ package exam.thread;
 public class Thread02 {
 
   public static void main(String[] args) {
+    
     Thread main = Thread.currentThread();
     System.out.println(main.getName());
     

@@ -26,6 +26,7 @@ public class Account {
 		long temp = this.balance;
 		if((temp - money )>= 0){
 			temp = temp - money;
+			
 			//시간을 지연시키기 위한 코드
 			// =>cpu 사용권을 뺏기게 할려고
 			long x = (long)(Math.random() * 50)+1;
