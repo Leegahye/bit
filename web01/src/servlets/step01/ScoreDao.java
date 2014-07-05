@@ -193,7 +193,7 @@ public class ScoreDao {
     try {
       con = dbConnectionPool.getConnection();
       stmt = con.prepareStatement( 
-          "delete from scores where sno = ?");
+          "delete from scores where sno =?");
       
       stmt.setInt(1, no);
       
@@ -209,8 +209,42 @@ public class ScoreDao {
       dbConnectionPool.returnConnection(con);
     }
   }
+  
+  public Score getNumber(int no)throws Exception {
+	  Connection con = null;
+	    Statement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	      con = dbConnectionPool.getConnection();
+	      stmt = con.createStatement();
+	      rs = stmt.executeQuery(
+	              "select name, kor, eng, math from scores where sno = " + no);
+	      
+	      	Score score = null;
+	      	
+	      	 if (rs.next()) {
+		      	score = new Score();
+		        score.setNo(no);
+		        score.setName( rs.getString("name"));
+		        score.setKor( rs.getInt("kor"));
+		        score.setEng( rs.getInt("eng"));
+		        score.setMath( rs.getInt("math")); 
+	      	 }
 
-  public void update() {
+	      return score;
+	
+	    } catch (Exception e) {
+	      throw e;
+	      
+	    } finally { 
+	      try { stmt.close();} catch (SQLException e) {}
+	      //try { con.close();} catch (SQLException e) {}
+	      dbConnectionPool.returnConnection(con);
+	    }
+	  }
+
+  public int update(Score score) throws Exception {
     Connection con = null;
     PreparedStatement stmt = null;
     
@@ -219,20 +253,16 @@ public class ScoreDao {
       stmt = con.prepareStatement(
           "update scores set name=?, kor=?, eng=?, math=? where sno=?");
       
-      stmt.setString(1, currScore.getName());
-      stmt.setInt(2, currScore.getKor());
-      stmt.setInt(3, currScore.getEng());
-      stmt.setInt(4, currScore.getMath());
-      stmt.setInt(5, currScore.getNo());
+      stmt.setString(1, score.getName());
+      stmt.setInt(2, score.getKor());
+      stmt.setInt(3, score.getEng());
+      stmt.setInt(4, score.getMath());
+      stmt.setInt(5, score.getNo());
       
-      int count = stmt.executeUpdate();
-      
-      if (count == 1) {
-        System.out.println("변경 성공!");
-      }
+      return stmt.executeUpdate();
       
     } catch (Exception e) {
-      e.printStackTrace();
+      throw e;
       
     } finally { 
       try { stmt.close();} catch (SQLException e) {}
@@ -240,7 +270,7 @@ public class ScoreDao {
       dbConnectionPool.returnConnection(con);
     }
   }  
-  
+
   public Score getCurrentScore() {
     return currScore;
   }

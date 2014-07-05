@@ -58,6 +58,7 @@ public class ScoreList extends HttpServlet {
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>성적 관리</title>");
+    
     out.println("<style type=\"text/css\">");
     out.println("table {");
     out.println("  font-family: verdana,arial,sans-serif;");
@@ -85,6 +86,8 @@ public class ScoreList extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>성적 관리</h1>");
+    
+    out.format("  <td><a href='../score/form.html'>추가</a></td>");
     out.println("<table>");
     out.println("<tr>");
     out.println("  <th>번호</th> ");
@@ -102,7 +105,7 @@ public class ScoreList extends HttpServlet {
       for (Score score : scores) {
         out.println("<tr>");
         // format()과 동일한 기능을 수행하는 printf()도 있다는 것을 보여주기 위해 사용!
-        out.printf("  <td>%1$d</td> ", score.getNo());
+        out.printf("  <td><a href='updateform?no=%1$d'>%2$d</a></td> ", score.getNo(), score.getNo());
         out.format("  <td>%1$s</td> ", score.getName());
         out.format("  <td>%1$d</td> ", score.getKor());
         out.format("  <td>%1$d</td> ", score.getEng());
@@ -111,6 +114,7 @@ public class ScoreList extends HttpServlet {
         out.format("  <td>%1$.1f</td>", score.getAverage());
         out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", score.getNo());
         out.println("</tr>");
+   
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -120,15 +124,5 @@ public class ScoreList extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
-
+	
 }
-
-
-
-
-
-
-
-
-
-
