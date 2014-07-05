@@ -38,7 +38,9 @@ public class ScoreUpdate  extends HttpServlet {
       throws ServletException, IOException {
       response.setContentType("text/html; charset=UTF-8");
       PrintWriter out = response.getWriter();
+      
       Score score = new Score();
+      
       score.setNo(Integer.parseInt(request.getParameter("sno")));
       score.setName(request.getParameter("name"));
       score.setKor(Integer.parseInt(request.getParameter("kor")));

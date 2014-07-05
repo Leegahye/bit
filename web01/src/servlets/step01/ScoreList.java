@@ -103,10 +103,9 @@ public class ScoreList extends HttpServlet {
     try {
       ArrayList<Score> scores = scoreDao.list();
       for (Score score : scores) {
-        out.println("<tr>");
-        // format()과 동일한 기능을 수행하는 printf()도 있다는 것을 보여주기 위해 사용!
+        out.println("<tr>");  
         out.printf("  <td><a href='updateform?no=%1$d'>%2$d</a></td> ", score.getNo(), score.getNo());
-        out.format("  <td>%1$s</td> ", score.getName());
+        out.format(" <td>%1$s</td> ", score.getName());
         out.format("  <td>%1$d</td> ", score.getKor());
         out.format("  <td>%1$d</td> ", score.getEng());
         out.format("  <td>%1$d</td> ", score.getMath());

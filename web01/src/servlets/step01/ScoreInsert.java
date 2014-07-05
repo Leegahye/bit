@@ -38,10 +38,9 @@ public class ScoreInsert  extends HttpServlet {
       throws ServletException, IOException {
     try {          	
     	Score score = new Score();
-    	
-        response.setContentType("text/html; charset=UTF-8");
+    	 response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+       
     	String name = request.getParameter("name");
     	int kor = Integer.parseInt(request.getParameter("kor"));
 		int eng = Integer.parseInt(request.getParameter("eng"));
