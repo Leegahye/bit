@@ -87,7 +87,7 @@ public class ScoreList extends HttpServlet {
     out.println("<body>");
     out.println("<h1>성적 관리</h1>");
     
-    out.format("  <td><a href='../score/form.html'>추가</a></td>");
+    out.format("  <td><a href='../score/step01/scoreform.html'>추가</a></td>");
     out.println("<table>");
     out.println("<tr>");
     out.println("  <th>번호</th> ");

@@ -13,15 +13,22 @@ import java.io.Serializable;
  */
 
 public class Score implements Serializable  {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	
+@Override
+	public String toString() {
+		return "Score [no=" + no + ", name=" + name + ", kor=" + kor + ", eng="
+				+ eng + ", math=" + math + ", total=" + total + ", average="
+				+ average + "]";
+	}
 
-  private int no;
-  private String name;
-  private int kor;
-  private int eng;
-  private int math;
-  transient private int total;
-  transient private float average;
+	  private int no;
+	  private String name;
+	  private int kor;
+	  private int eng;
+	  private int math;
+	  transient private int total;
+	  transient private float average;
 
   public Score() {}
 

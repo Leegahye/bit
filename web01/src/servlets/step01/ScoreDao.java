@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ScoreDao {
   DbConnectionPool dbConnectionPool;
-  Score currScore;
   
   public ArrayList<Score> list() throws Exception {
     Connection con = null;
@@ -54,7 +53,6 @@ public class ScoreDao {
     } finally { 
       try { rs.close();} catch (SQLException e) {}
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
@@ -89,7 +87,6 @@ public class ScoreDao {
         rs = stmt.getGeneratedKeys(); //1) 자동 생성 PK값 가져오는 역할자 얻기 
         rs.next(); // 2) PK 값 가져오기 
         score.setNo( rs.getInt(1)); // 3) DBMS에서 자동 생성된 PK 값을 Score에 저장. 
-        currScore = score;
       }
       
     } catch (Exception e) {
@@ -98,94 +95,9 @@ public class ScoreDao {
     } finally { 
       try { rs.close();} catch (SQLException e) {}
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
-  }
-
-  public Score next() {
-    Connection con = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    
-    try {
-      con = dbConnectionPool.getConnection();
-      
-      stmt = con.prepareStatement(
-          "select sno, name, kor, eng, math" +
-          " from scores " +
-          " where sno = (select min(sno) from scores where sno > ?)");
-      
-      stmt.setInt(1, currScore.getNo());
-      
-      rs = stmt.executeQuery();
-      
-      if (rs.next()) {
-        currScore = new Score();
-        currScore.setNo( rs.getInt("sno"));
-        currScore.setName( rs.getString("name"));
-        currScore.setKor( rs.getInt("kor"));
-        currScore.setEng( rs.getInt("eng"));
-        currScore.setMath( rs.getInt("math"));   
-        return currScore;
-        
-      } else {
-        return null;
-      }
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-      
-    } finally { 
-      try { rs.close();} catch (SQLException e) {}
-      try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
-      dbConnectionPool.returnConnection(con);
-    }
-  }
-
-  public Score previous() {
-    Connection con = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    
-    try {
-      con = dbConnectionPool.getConnection();
-      stmt = con.prepareStatement(
-          "select sno, name, kor, eng, math" +
-          " from scores " +
-          " where sno = (select max(sno) from scores where sno < ?)");
-      
-      stmt.setInt(1, currScore.getNo());
-      
-      rs = stmt.executeQuery();
-      
-      if (rs.next()) {
-        currScore = new Score();
-        currScore.setNo( rs.getInt("sno"));
-        currScore.setName( rs.getString("name"));
-        currScore.setKor( rs.getInt("kor"));
-        currScore.setEng( rs.getInt("eng"));
-        currScore.setMath( rs.getInt("math"));        
-        return currScore;
-        
-      } else {
-        return null;
-      }
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-      
-    } finally { 
-      try { rs.close();} catch (SQLException e) {}
-      try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
-      dbConnectionPool.returnConnection(con);
-    }
-  }
-  
+  }  
   public int delete(int no) throws Exception {
     Connection con = null;
     PreparedStatement stmt = null;
@@ -205,7 +117,6 @@ public class ScoreDao {
       
     } finally { 
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
@@ -218,28 +129,27 @@ public class ScoreDao {
 	    try {
 	      con = dbConnectionPool.getConnection();
 	      stmt = con.createStatement();
-	      rs = stmt.executeQuery(
-	              "select name, kor, eng, math from scores where sno = " + no);
+	      rs = stmt.executeQuery("select name, kor, eng, math from scores where sno = " + no);
 	      
-	      	Score score = null;
+	      Score score = null;
 	      	
-	      	 if (rs.next()) {
-		      	score = new Score();
-		        score.setNo(no);
-		        score.setName( rs.getString("name"));
-		        score.setKor( rs.getInt("kor"));
-		        score.setEng( rs.getInt("eng"));
-		        score.setMath( rs.getInt("math")); 
-	      	 }
-
-	      return score;
-	
+	      if (rs.next()) {
+	      	score = new Score();
+	        score.setNo(no);
+	        score.setName( rs.getString("name"));
+	        score.setKor( rs.getInt("kor"));
+	        score.setEng( rs.getInt("eng"));
+	        score.setMath( rs.getInt("math")); 
+	        return score;
+	      }else{
+	    	  return null;	    	  
+	      }
+	      
 	    } catch (Exception e) {
 	      throw e;
 	      
 	    } finally { 
 	      try { stmt.close();} catch (SQLException e) {}
-	      //try { con.close();} catch (SQLException e) {}
 	      dbConnectionPool.returnConnection(con);
 	    }
 	  }
@@ -266,14 +176,10 @@ public class ScoreDao {
       
     } finally { 
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }  
 
-  public Score getCurrentScore() {
-    return currScore;
-  }
 }
 
 

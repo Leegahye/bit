@@ -2,7 +2,6 @@ package servlets.step01;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/score/updateform")
 public class updateForm extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	
+
 	  DbConnectionPool dbConnectionPool;
 	  ScoreDao scoreDao;
-	  
+
 	  @Override
 	  public void init(ServletConfig config) throws ServletException {
 	    super.init(config);
-	    
+
 	    try {
 	      dbConnectionPool = new DbConnectionPool(
 	          "com.mysql.jdbc.Driver",
@@ -29,35 +28,35 @@ public class updateForm extends HttpServlet{
 	          "bit", "1111");
 	      scoreDao = new ScoreDao();
 	      scoreDao.setDbConnectionPool(dbConnectionPool);
-	      
+
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }
 	  }
-	  
+
 	  @Override
 	  public void destroy() {
 	    super.destroy();
-	    
+
 	    dbConnectionPool.closeAll();
 	  }
-	  
+
 	  @Override
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	      throws ServletException, IOException {
-		  
-	    
+
+
 	    // 출력되는 내용을 지정된 문자집합으로 인코딩한다.
 	    // 인코딩 => 문자집합 명세서에 나와 있는대로 각 문자에 대해 코드 값으로 바꾼다.
 	    // 'A' -> 0x41(1byte), '가' => 0x80xxxx (3byte)
 	    response.setContentType("text/html; charset=UTF-8");
 	    PrintWriter out = response.getWriter();
 	    int no = Integer.parseInt(request.getParameter("no"));
-	    
-	   
+
+
 	    try {
 	    		Score score = scoreDao.getNumber(no);
-	    		
+
 			 	out.println("<!DOCTYPE html>");
 			    out.println("<html>");
 			    out.println("<head>");
@@ -80,7 +79,7 @@ public class updateForm extends HttpServlet{
 	    out.println(" </body>");
 	    out.println("</html>");
 	  }
-	  
+
 	  @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

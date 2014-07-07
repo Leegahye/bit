@@ -34,47 +34,45 @@ public class ScoreInsert  extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    try {          	
-    	Score score = new Score();
-    	 response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-       
-    	String name = request.getParameter("name");
-    	int kor = Integer.parseInt(request.getParameter("kor"));
-		int eng = Integer.parseInt(request.getParameter("eng"));
-		int math = Integer.parseInt(request.getParameter("math"));
-		
-		score.setName(name);
-		score.setKor(kor);
-		score.setEng(eng);
-		score.setMath(math);
-	
-    	scoreDao.insert(score);
-
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset=\"UTF-8\">");
-      
-      // 웹 브라우저에게 1초 후에 list를 요청할 것을 알리는 명령 심는다.
-      out.println("<meta http-equiv='Refresh' content='1; list'>");
-      
-      out.println("<title>성적 추가</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<p>추가 성공입니다.</p>");
-      out.println("</body>");
-      out.println("</html>");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public void destroy() {
+    super.destroy();
+    
+    dbConnectionPool.closeAll();
   }
+  
   @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	  doGet(request, response);
-	}
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	   throws ServletException, IOException {
+	 try {          	
+		  Score score = new Score();
+	      response.setContentType("text/html; charset=UTF-8");
+		  PrintWriter out = response.getWriter();
+		   
+		  String name = request.getParameter("name");
+		  int kor = Integer.parseInt(request.getParameter("kor"));
+		  int eng = Integer.parseInt(request.getParameter("eng"));
+		  int math = Integer.parseInt(request.getParameter("math"));
+			
+		  score.setName(name);
+		  score.setKor(kor);
+		  score.setEng(eng);
+	      score.setMath(math);
+		
+		  scoreDao.insert(score);
 
+	      out.println("<!DOCTYPE html>");
+	      out.println("<html>");
+	      out.println("<head>");
+	      out.println("<meta charset=\"UTF-8\">");
+	      out.println("<meta http-equiv='Refresh' content='1; url=list'>");
+	      out.println("<title>성적 추가</title>");
+	      out.println("</head>");
+	      out.println("<body>");
+	      out.println("<p>추가 성공입니다.</p>");
+	      out.println("</body>");
+	      out.println("</html>");
+	    } catch (Exception e) {
+	    	e.printStackTrace(); 
+	    }
+	}
 }
