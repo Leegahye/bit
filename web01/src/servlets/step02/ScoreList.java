@@ -1,10 +1,11 @@
-package servlets.step01;
+package servlets.step02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,35 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 // 컴파일 한후 .class 파일에 주석 정보가 보관된다.
 // why? 그래야만 톰캣 서버가 클래스 파일로부터 URL 정보를 얻을 것이 아니냐...
 
-//@WebServlet("/score/list")
+//@WebServlet("/score/step02/list")
 public class ScoreList extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  DbConnectionPool dbConnectionPool;
-  ScoreDao scoreDao;
-  
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    
-    try {
-      dbConnectionPool = new DbConnectionPool(
-          "com.mysql.jdbc.Driver",
-          "jdbc:mysql://localhost:3306/bitdb?useUnicode=true&characterEncoding=UTF-8",
-          "bit", "1111");
-      scoreDao = new ScoreDao();
-      scoreDao.setDbConnectionPool(dbConnectionPool);
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-  
-  @Override
-  public void destroy() {
-    super.destroy();
-    
-    dbConnectionPool.closeAll();
-  }
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,7 +33,6 @@ public class ScoreList extends HttpServlet {
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>성적 관리</title>");
-    
     out.println("<style type=\"text/css\">");
     out.println("table {");
     out.println("  font-family: verdana,arial,sans-serif;");
@@ -86,8 +60,6 @@ public class ScoreList extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>성적 관리</h1>");
-    
-    out.format("  <td><a href='../score/step01/scoreform.html'>추가</a></td>");
     out.println("<table>");
     out.println("<tr>");
     out.println("  <th>번호</th> ");
@@ -101,11 +73,15 @@ public class ScoreList extends HttpServlet {
     out.println("</tr>");
 
     try {
+      ServletContext ctx = this.getServletContext();
+      ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
       ArrayList<Score> scores = scoreDao.list();
+      
       for (Score score : scores) {
-        out.println("<tr>");  
-        out.printf("  <td><a href='updateform?no=%1$d'>%2$d</a></td> ", score.getNo(), score.getNo());
-        out.format(" <td>%1$s</td> ", score.getName());
+        out.println("<tr>");
+        // format()과 동일한 기능을 수행하는 printf()도 있다는 것을 보여주기 위해 사용!
+        out.printf("  <td><a href='update?no=%1$d'>%1$d</a></td> ", score.getNo());
+        out.format("  <td>%1$s</td> ", score.getName());
         out.format("  <td>%1$d</td> ", score.getKor());
         out.format("  <td>%1$d</td> ", score.getEng());
         out.format("  <td>%1$d</td> ", score.getMath());
@@ -113,7 +89,6 @@ public class ScoreList extends HttpServlet {
         out.format("  <td>%1$.1f</td>", score.getAverage());
         out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", score.getNo());
         out.println("</tr>");
-   
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -123,5 +98,15 @@ public class ScoreList extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
-	
+
 }
+
+
+
+
+
+
+
+
+
+

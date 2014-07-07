@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/score/update")
+//@WebServlet("/score/update")
 public class ScoreUpdate  extends HttpServlet {
   private static final long serialVersionUID = 1L;
   DbConnectionPool dbConnectionPool;
