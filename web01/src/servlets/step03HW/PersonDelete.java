@@ -33,9 +33,9 @@ public class PersonDelete  extends HttpServlet {
       out.println("<meta charset=\"UTF-8\">");
       
       // 웹 브라우저에게 1초 후에 list를 요청할 것을 알리는 명령 심는다.
-      out.println("<meta http-equiv='Refresh' content='5; url=list'>");
+      out.println("<meta http-equiv='Refresh' content='1; url=list'>");
       
-      out.println("<title>성적 삭제</title>");
+      out.println("<title>회원정보 삭제</title>");
       out.println("</head>");
       out.println("<body>");
       out.println("<p>삭제 성공입니다.</p>");

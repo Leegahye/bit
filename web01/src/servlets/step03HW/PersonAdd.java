@@ -25,7 +25,7 @@ public class PersonAdd extends HttpServlet {
     person.setName(request.getParameter("name"));
     person.setEmail(request.getParameter("email"));
     person.setTel(request.getParameter("tel"));
-    person.setPw(request.getParameter("pw"));
+    person.setPw(request.getParameter("pwd"));
     
     ServletContext ctx = this.getServletContext();
     PersonDao scoreDao = (PersonDao)ctx.getAttribute("personDao");

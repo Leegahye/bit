@@ -44,7 +44,7 @@ public class PersonUpdate extends HttpServlet {
     		  person.getEmail());
       out.format("전화번호: <input type=\"text\" name=\"tel\" value='%1$s'><br>",
     		  person.getTel());
-      out.format("암호 : <input type=\"text\" name=\"pw\" value='%1$s'><br>",
+      out.format("암호 : <input type=\"text\" name=\"pwd\" value='%1$s'><br>",
     		  person.getPw());
       out.println("<input type=\"submit\" value=\"변경\">");
       out.println("</form>");
@@ -73,7 +73,7 @@ public class PersonUpdate extends HttpServlet {
     person.setName(request.getParameter("name"));
     person.setEmail(request.getParameter("email"));
     person.setTel(request.getParameter("tel"));
-    person.setPw(request.getParameter("pw"));
+    person.setPw(request.getParameter("pwd"));
     
     ServletContext ctx = this.getServletContext();
     PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");

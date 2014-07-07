@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 컴파일 한후 .class 파일에 주석 정보가 보관된다.
-// why? 그래야만 톰캣 서버가 클래스 파일로부터 URL 정보를 얻을 것이 아니냐...
-
 @WebServlet("/score/step03HW/list")
 public class PersonList extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -22,10 +19,7 @@ public class PersonList extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
-    // 출력되는 내용을 지정된 문자집합으로 인코딩한다.
-    // 인코딩 => 문자집합 명세서에 나와 있는대로 각 문자에 대해 코드 값으로 바꾼다.
-    // 'A' -> 0x41(1byte), '가' => 0x80xxxx (3byte)
+  
     response.setContentType("text/html; charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
@@ -67,7 +61,6 @@ public class PersonList extends HttpServlet {
     out.println("  <th>이름</th> ");
     out.println("  <th>이메일</th> ");
     out.println("  <th>전화번호</th> ");
-    out.println("  <th>암호</th> ");
     out.println("  <th></th>");
     out.println("</tr>");
 
@@ -82,7 +75,6 @@ public class PersonList extends HttpServlet {
         out.format("  <td>%1$s</td> ", person.getName());
         out.format("  <td>%1$s</td> ", person.getEmail());
         out.format("  <td>%1$s</td> ", person.getTel());
-        out.format("  <td>%1$s</td> ", person.getPw());
         out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", person.getNo());
         out.println("</tr>");
       }

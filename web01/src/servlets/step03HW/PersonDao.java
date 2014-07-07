@@ -33,7 +33,7 @@ public class PersonDao {
       stmt = con.createStatement();
       
       rs = stmt.executeQuery(
-          "select mno, name, email, tel, pw "
+          "select mno, name, email, tel, pwd "
           + " from members order by mno desc");
       
       ArrayList<Person> persons = new ArrayList<Person>();
@@ -46,8 +46,8 @@ public class PersonDao {
     	person.setName( rs.getString("name"));
     	person.setEmail(rs.getString("email"));
     	person.setTel( rs.getString("tel"));
-    	person.setPw( rs.getString("pw")); 
-    	person.add(person);
+    	person.setPw( rs.getString("pwd")); 
+    	persons.add(person);
       }
       return persons;
       
@@ -70,7 +70,7 @@ public class PersonDao {
     try {
       con = dbConnectionPool.getConnection();
       stmt = con.prepareStatement(
-          "select sno, name, kor, eng, math from scores where sno=?");
+          "select mno, name, email, tel, pwd from members where mno=?");
       stmt.setInt(1, no);
       rs = stmt.executeQuery();
       
@@ -80,7 +80,7 @@ public class PersonDao {
 		  person.setName( rs.getString("name"));
 		  person.setEmail( rs.getString("email"));
 		  person.setTel( rs.getString("tel"));
-		  person.setPw( rs.getString("pw"));
+		  person.setPw( rs.getString("pwd"));
 		  return person;
       } else {
         return null;
@@ -92,7 +92,6 @@ public class PersonDao {
     } finally { 
       try { rs.close();} catch (SQLException e) {}
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
@@ -106,7 +105,7 @@ public class PersonDao {
       con = dbConnectionPool.getConnection();
 
       stmt = con.prepareStatement(
-          "insert into members (name, email, tel, pw)" +
+          "insert into members (name, email, tel, pwd)" +
           " values(?, ?, ?, ?)", 
           Statement.RETURN_GENERATED_KEYS);
 
@@ -131,7 +130,6 @@ public class PersonDao {
     } finally { 
       try { rs.close();} catch (SQLException e) {}
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
@@ -167,7 +165,7 @@ public class PersonDao {
     try {
       con = dbConnectionPool.getConnection();
       stmt = con.prepareStatement(
-          "update members set name=?, email=?, tel=?, pw=? where mno=?");
+          "update members set name=?, email=?, tel=?, pwd=? where mno=?");
       
       stmt.setString(1, person.getName());
       stmt.setString(2, person.getEmail());
@@ -188,13 +186,3 @@ public class PersonDao {
   }  
   
 }
-
-
-
-
-
-
-
-
-
-

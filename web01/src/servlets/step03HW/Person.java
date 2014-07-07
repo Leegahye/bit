@@ -69,10 +69,6 @@ public class Person implements Serializable  {
 				+ ", tel=" + tel + ", pw=" + pw + "]";
 	}
 
-	public void add(Person person) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
 

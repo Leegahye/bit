@@ -32,9 +32,6 @@ public class ContextLoaderListener implements ServletContextListener{
 	      e.printStackTrace();
 	    }	
 	}
-
-	//웹 애플리케이션이 종료되기 직전에 호출된다.
-	//웹 애플리케이션이 사용한 공용 자원을 해제한다.
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 	  ServletContext ctx = event.getServletContext();
