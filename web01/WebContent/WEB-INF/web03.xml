@@ -4,13 +4,13 @@
   
   <!-- 리스너 선언  -->
   <listener>
-    <listener-class>servlets.step03HW.ContextLoaderListener</listener-class>
+    <listener-class>servlets.step03.ContextLoaderListener</listener-class>
   </listener>
   
   <!-- 필터 클래스 선언 -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <filter-class>servlets.step03HW.CharacterEncodingFilter</filter-class>
+    <filter-class>servlets.step03.CharacterEncodingFilter</filter-class>
   </filter>
   
   <!-- 필터를 적용할 URL 지정 -->

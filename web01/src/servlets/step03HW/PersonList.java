@@ -1,4 +1,4 @@
-package servlets.step03;
+package servlets.step03HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 // 컴파일 한후 .class 파일에 주석 정보가 보관된다.
 // why? 그래야만 톰캣 서버가 클래스 파일로부터 URL 정보를 얻을 것이 아니냐...
 
-//@WebServlet("/score/step03/list")
-public class ScoreList extends HttpServlet {
+@WebServlet("/score/step03HW/list")
+public class PersonList extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   @Override
@@ -32,7 +32,7 @@ public class ScoreList extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
-    out.println("<title>성적 관리</title>");
+    out.println("<title>회원 관리</title>");
     out.println("<style type=\"text/css\">");
     out.println("table {");
     out.println("  font-family: verdana,arial,sans-serif;");
@@ -59,46 +59,42 @@ public class ScoreList extends HttpServlet {
     out.println("</style>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>성적 관리</h1>");
-    out.println("<a href='scoreform.html'>추가</a>");
+    out.println("<h1>회원 관리</h1>");
+    out.println("<a href='personform.html'>추가</a>");
     out.println("<table>");
     out.println("<tr>");
     out.println("  <th>번호</th> ");
     out.println("  <th>이름</th> ");
-    out.println("  <th>국어</th> ");
-    out.println("  <th>영어</th> ");
-    out.println("  <th>수학</th> ");
-    out.println("  <th>합계</th> ");
-    out.println("  <th>평균</th>");
+    out.println("  <th>이메일</th> ");
+    out.println("  <th>전화번호</th> ");
+    out.println("  <th>암호</th> ");
     out.println("  <th></th>");
     out.println("</tr>");
 
     try {
       ServletContext ctx = this.getServletContext();
-      ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
-      ArrayList<Score> scores = scoreDao.list();
-      for (Score score : scores) {
+      PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
+      ArrayList<Person> persons = personDao.list();
+      for (Person person : persons) {
         out.println("<tr>");
         // format()과 동일한 기능을 수행하는 printf()도 있다는 것을 보여주기 위해 사용!
-        out.printf("  <td><a href='update?no=%1$d'>%1$d</a></td> ", score.getNo());
-        out.format("  <td>%1$s</td> ", score.getName());
-        out.format("  <td>%1$d</td> ", score.getKor());
-        out.format("  <td>%1$d</td> ", score.getEng());
-        out.format("  <td>%1$d</td> ", score.getMath());
-        out.format("  <td>%1$d</td> ", score.getTotal());
-        out.format("  <td>%1$.1f</td>", score.getAverage());
-        out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", score.getNo());
+        out.printf("  <td><a href='update?no=%1$d'>%1$d</a></td> ", person.getNo());
+        out.format("  <td>%1$s</td> ", person.getName());
+        out.format("  <td>%1$s</td> ", person.getEmail());
+        out.format("  <td>%1$s</td> ", person.getTel());
+        out.format("  <td>%1$s</td> ", person.getPw());
+        out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", person.getNo());
         out.println("</tr>");
       }
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
     
     out.println("</table>");
     
-    RequestDispatcher rd = request.getRequestDispatcher("/score/step03/copyright");
+    RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/copyright");
     rd.include(request, response);
     
     out.println("</body>");

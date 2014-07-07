@@ -1,4 +1,4 @@
-package servlets.step03;
+package servlets.step03HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step03/delete")
-public class ScoreDelete  extends HttpServlet {
+@WebServlet("/score/step03HW/delete")
+public class PersonDelete  extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   @Override
@@ -22,7 +22,7 @@ public class ScoreDelete  extends HttpServlet {
     
     try {
       ServletContext ctx = this.getServletContext();
-      ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
+      PersonDao scoreDao = (PersonDao)ctx.getAttribute("personDao");
       scoreDao.delete(no);
       
       response.setContentType("text/html; charset=UTF-8");
@@ -40,13 +40,13 @@ public class ScoreDelete  extends HttpServlet {
       out.println("<body>");
       out.println("<p>삭제 성공입니다.</p>");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03/copyright");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/copyright");
       rd.include(request, response);
       
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
