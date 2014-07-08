@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/score/step03HW/delete")
+//@WebServlet("/score/step03HW/delete")
 public class PersonDelete  extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
