@@ -1,4 +1,4 @@
-package servlets.step03HW;
+package servlets.step04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/score/step03HW/delete")
-public class PersonDelete  extends HttpServlet {
+//@WebServlet("/score/step03/delete")
+public class ScoreDelete  extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   @Override
@@ -22,7 +22,7 @@ public class PersonDelete  extends HttpServlet {
     
     try {
       ServletContext ctx = this.getServletContext();
-      PersonDao scoreDao = (PersonDao)ctx.getAttribute("personDao");
+      ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
       scoreDao.delete(no);
       
       response.setContentType("text/html; charset=UTF-8");
@@ -33,20 +33,20 @@ public class PersonDelete  extends HttpServlet {
       out.println("<meta charset=\"UTF-8\">");
       
       // 웹 브라우저에게 1초 후에 list를 요청할 것을 알리는 명령 심는다.
-      out.println("<meta http-equiv='Refresh' content='1; url=list'>");
+      out.println("<meta http-equiv='Refresh' content='5; url=list'>");
       
-      out.println("<title>회원정보 삭제</title>");
+      out.println("<title>성적 삭제</title>");
       out.println("</head>");
       out.println("<body>");
       out.println("<p>삭제 성공입니다.</p>");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/copyright");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step03/copyright");
       rd.include(request, response);
       
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step03/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
