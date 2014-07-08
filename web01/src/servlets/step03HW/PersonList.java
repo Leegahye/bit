@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/score/step03HW/list")
+//@WebServlet("/score/step03HW/list")
 public class PersonList extends HttpServlet {
   private static final long serialVersionUID = 1L;
   

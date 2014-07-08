@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/score/step03HW/update")
+//@WebServlet("/score/step03HW/update")
 public class PersonUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
   

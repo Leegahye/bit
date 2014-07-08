@@ -1,4 +1,4 @@
-package servlets.step03HW;
+package servlets.step04HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step03HW/delete")
+@WebServlet("/score/step04HW/delete")
 public class PersonDelete  extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
@@ -40,13 +40,13 @@ public class PersonDelete  extends HttpServlet {
       out.println("<body>");
       out.println("<p>삭제 성공입니다.</p>");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/copyright");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/copyright");
       rd.include(request, response);
       
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }

@@ -1,4 +1,4 @@
-package servlets.step04;
+package servlets.step04HW;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
  * - 모든 서블릿들이 공용으로 이용할 자원을 준비하는 역할을 수행한다.
  */
 
-public class ContextLoaderServlet01 extends HttpServlet {
+public class ContextLoaderServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   @Override
@@ -28,12 +28,12 @@ public class ContextLoaderServlet01 extends HttpServlet {
           "com.mysql.jdbc.Driver",
           "jdbc:mysql://localhost:3306/bitdb?useUnicode=true&characterEncoding=UTF-8",
           "bit", "1111");
-      ScoreDao scoreDao = new ScoreDao();
-      scoreDao.setDbConnectionPool(dbConnectionPool);
+      PersonDao personDao = new PersonDao();
+      personDao.setDbConnectionPool(dbConnectionPool);
       
       ServletContext ctx = this.getServletContext();
       ctx.setAttribute("dbConnectionPool", dbConnectionPool);
-      ctx.setAttribute("scoreDao", scoreDao);
+      ctx.setAttribute("personDao", personDao);
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -49,6 +49,7 @@ public class ContextLoaderServlet01 extends HttpServlet {
         (DbConnectionPool)ctx.getAttribute("dbConnectionPool");
     dbConnectionPool.closeAll();
   }
+  
   
 }
 

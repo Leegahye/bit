@@ -1,4 +1,4 @@
-package servlets.step04;
+package servlets.step04HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step04/copyright")
+@WebServlet("/score/step04HW/copyright")
 public class CopyrightServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

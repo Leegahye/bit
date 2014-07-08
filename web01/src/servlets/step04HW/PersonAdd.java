@@ -1,4 +1,4 @@
-package servlets.step03HW;
+package servlets.step04HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step03HW/add")
+@WebServlet("/score/step04HW/add")
 public class PersonAdd extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
@@ -45,7 +45,7 @@ public class PersonAdd extends HttpServlet {
       out.println("<body>");
       out.println("<p>등록 성공입니다.</p>");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/copyright");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/copyright");
       rd.include(request, response);
       
       out.println("</body>");
@@ -54,7 +54,7 @@ public class PersonAdd extends HttpServlet {
     } catch (Exception e) {
       // 오류가 발생하면 /score/step03/error 서블릿으로 위임한다.
       // 요청 배달자를 통해 요청을 해당 서블릿으로 배달한다.
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step03HW/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
       
       // ErrorServlet에 실행을 위임하기 전에 ServletRequest 보관함에 
       // 오류정보를 담아서 보낸다.

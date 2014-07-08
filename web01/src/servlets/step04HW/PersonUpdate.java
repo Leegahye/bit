@@ -1,4 +1,4 @@
-package servlets.step04;
+package servlets.step04HW;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,28 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step04/update")
-public class ScoreUpdate extends HttpServlet {
+@WebServlet("/score/step04HW/update")
+public class PersonUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    int no = Integer.parseInt(request.getParameter("no"));
+    int no = Integer.parseInt(request.getParameter("mno"));
     
     try {
       ServletContext ctx = this.getServletContext();
-      ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
-      Score score = scoreDao.selectOne(no);
-    
+      PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
+      Person person = personDao.selectOne(no);
+      
       response.setContentType("text/html; charset=UTF-8");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/scoreupdateform.jsp");
-      request.setAttribute("score", score);
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/personupdateform.jsp");
+      request.setAttribute("person", person);
       rd.include(request, response);
       
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
@@ -41,23 +41,23 @@ public class ScoreUpdate extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
-    Score score = new Score();
-    score.setNo(Integer.parseInt(request.getParameter("no")));
-    score.setName(request.getParameter("name"));
-    score.setKor(Integer.parseInt(request.getParameter("kor")));
-    score.setEng(Integer.parseInt(request.getParameter("eng")));
-    score.setMath(Integer.parseInt(request.getParameter("math")));
+   
+    Person person = new Person();
+    person.setNo(Integer.parseInt(request.getParameter("mno")));
+    person.setName(request.getParameter("name"));
+    person.setEmail(request.getParameter("email"));
+    person.setTel(request.getParameter("tel"));
+    person.setPw(request.getParameter("pwd"));
     
     ServletContext ctx = this.getServletContext();
-    ScoreDao scoreDao = (ScoreDao)ctx.getAttribute("scoreDao");
+    PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
     
     try {
-      scoreDao.update(score);
+      personDao.update(person);
       response.sendRedirect("list");
-
+      
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
