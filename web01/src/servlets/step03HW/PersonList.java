@@ -69,10 +69,11 @@ public class PersonList extends HttpServlet {
       PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
       ArrayList<Person> persons = personDao.list();
       for (Person person : persons) {
+    	  
         out.println("<tr>");
         // format()과 동일한 기능을 수행하는 printf()도 있다는 것을 보여주기 위해 사용!
-        out.printf("  <td><a href='update?no=%1$d'>%1$d</a></td> ", person.getNo());
-        out.format("  <td>%1$s</td> ", person.getName());
+        out.printf("  <td>%1$d</td> ", person.getNo());
+        out.format("  <td><a href='update?mno=%1$d'>%2$s</a></td> ", person.getNo(), person.getName());
         out.format("  <td>%1$s</td> ", person.getEmail());
         out.format("  <td>%1$s</td> ", person.getTel());
         out.format("  <td><a href='delete?no=%1$d'>삭제</a></td>", person.getNo());
@@ -94,13 +95,3 @@ public class PersonList extends HttpServlet {
   }
 
 }
-
-
-
-
-
-
-
-
-
-

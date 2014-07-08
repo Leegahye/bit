@@ -18,11 +18,14 @@ public class PersonUpdate extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    int no = Integer.parseInt(request.getParameter("no"));
+    int no = Integer.parseInt(request.getParameter("mno"));
+    //String name = request.getParameter("name");
     
     try {
+    	
       ServletContext ctx = this.getServletContext();
       PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
+      
       Person person = personDao.selectOne(no);
       
       response.setContentType("text/html; charset=UTF-8");
@@ -36,16 +39,11 @@ public class PersonUpdate extends HttpServlet {
       out.println("<body>");
       out.println("<h1>회원 변경</h1>");
       out.println("<form action=\"update\" method=\"post\">");
-      out.format("번호: <input type=\"text\" name=\"no\" value='%1$s' readonly><br>", 
-          person.getNo());
-      out.format("이름: <input type=\"text\" name=\"name\" value='%1$s'><br>", 
-    		  person.getName());
-      out.format("이메일: <input type=\"text\" name=\"email\" value='%1$s'><br>",
-    		  person.getEmail());
-      out.format("전화번호: <input type=\"text\" name=\"tel\" value='%1$s'><br>",
-    		  person.getTel());
-      out.format("암호 : <input type=\"text\" name=\"pwd\" value='%1$s'><br>",
-    		  person.getPw());
+      out.format("번호: <input type=\"text\" name=\"mno\" value='%1$d' readonly><br>",person.getNo());
+      out.format("이름: <input type=\"text\" name=\"name\" value='%1$s'><br>",person.getName());
+      out.format("이메일: <input type=\"text\" name=\"email\" value='%1$s'><br>",person.getEmail());
+      out.format("전화번호: <input type=\"text\" name=\"tel\" value='%1$s'><br>",person.getTel());
+      out.format("암호 : <input type=\"password\" name=\"pwd\"><br>",person.getPw());
       out.println("<input type=\"submit\" value=\"변경\">");
       out.println("</form>");
       
@@ -69,7 +67,7 @@ public class PersonUpdate extends HttpServlet {
     //request.setCharacterEncoding("UTF-8");
     
     Person person = new Person();
-    person.setNo(Integer.parseInt(request.getParameter("no")));
+    person.setNo(Integer.parseInt(request.getParameter("mno")));
     person.setName(request.getParameter("name"));
     person.setEmail(request.getParameter("email"));
     person.setTel(request.getParameter("tel"));

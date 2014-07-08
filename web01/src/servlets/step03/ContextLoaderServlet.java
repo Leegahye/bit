@@ -50,7 +50,6 @@ public class ContextLoaderServlet extends HttpServlet {
     dbConnectionPool.closeAll();
   }
   
-  
 }
 
 
