@@ -63,7 +63,7 @@ table td {
   <td>${score.math}</td>   
   <td>${score.total}</td>  
   <td>${score.average}</td>   
-  <td><a href='delete?no=12'>삭제</a></td>
+  <td><a href='delete?no=${score.no}'>삭제</a></td>
   </tr>
 </c:forEach>
 

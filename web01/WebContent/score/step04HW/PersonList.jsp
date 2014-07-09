@@ -53,7 +53,7 @@ table td {
     <td><a href='update?mno=${person.no}'>${person.name}</a></td>   
     <td>${person.email}</td>   
     <td>${person.tel}</td>   
-    <td><a href='delete?no=1'>삭제</a></td>
+    <td><a href='delete?no=${person.no }'>삭제</a></td>
     </tr>
 </c:forEach>
 

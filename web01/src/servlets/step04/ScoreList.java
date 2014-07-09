@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * 출력을 JSP에 위임하기
  */
 
-//@WebServlet("/score/step04/list")
+@WebServlet("/score/step04/list")
 public class ScoreList extends HttpServlet {
   private static final long serialVersionUID = 1L;
   

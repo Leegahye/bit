@@ -57,7 +57,6 @@ public class PersonDao {
     } finally { 
       try { rs.close();} catch (SQLException e) {}
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
@@ -153,7 +152,6 @@ public class PersonDao {
       
     } finally { 
       try { stmt.close();} catch (SQLException e) {}
-      //try { con.close();} catch (SQLException e) {}
       dbConnectionPool.returnConnection(con);
     }
   }
