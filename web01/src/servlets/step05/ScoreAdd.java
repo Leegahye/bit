@@ -1,4 +1,4 @@
-package servlets.step04;
+package servlets.step05;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step04/add")
+@WebServlet("/score/step05/add")
 public class ScoreAdd extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
@@ -32,7 +32,7 @@ public class ScoreAdd extends HttpServlet {
       response.sendRedirect("list");
       
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step05/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }

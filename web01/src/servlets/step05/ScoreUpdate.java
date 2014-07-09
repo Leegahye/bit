@@ -1,4 +1,4 @@
-package servlets.step04;
+package servlets.step05;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/score/step04/update")
+@WebServlet("/score/step05/update")
 public class ScoreUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
@@ -27,12 +27,12 @@ public class ScoreUpdate extends HttpServlet {
     
       response.setContentType("text/html; charset=UTF-8");
       
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/scoreupdateform.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step05/scoreupdateform.jsp");
       request.setAttribute("score", score);
       rd.include(request, response);
       
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step05/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
@@ -57,7 +57,7 @@ public class ScoreUpdate extends HttpServlet {
       response.sendRedirect("list");
 
     } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/score/step05/error");
       request.setAttribute("error", e);
       rd.forward(request, response);
     }
