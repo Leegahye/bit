@@ -1,4 +1,4 @@
-package servlets.step05;
+package servlets.step05HW;
 
 import java.io.IOException;
 

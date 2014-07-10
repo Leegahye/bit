@@ -1,7 +1,7 @@
 /* Entity 역할
  * - 성적 정보를 표현하는 역할 => Value Object(VO)
  */
-package servlets.step05;
+package servlets.step06;
 
 import java.io.Serializable;
 

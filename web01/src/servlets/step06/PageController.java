@@ -1,4 +1,4 @@
-package servlets.step05;
+package servlets.step06;
 
 import java.util.Map;
 
@@ -7,6 +7,8 @@ import java.util.Map;
  * - 피호출자 => 페이지 컨트롤러
  * 
  */
+
 public interface PageController {
-  String execute(Map<String,String[]> params, Map<String,Object> model) throws Exception;
+  String execute(
+      Map<String,String[]> params, Map<String,Object> model) throws Exception;
 }
