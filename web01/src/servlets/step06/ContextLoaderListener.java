@@ -39,6 +39,7 @@ import org.apache.log4j.Logger;
 //			  org.apache.log4j.HTMLLayout : HTML 테이블 형식으로 출력
 //			  org.apache.log4j.PatternLayout : 지정된 패턴 형식에 따라 로그 출력
 //			  org.apache.log4j.xml.XMLLayout : log4j.dtd규칙에 따라 XML문서 출력
+
 //	4) PatternLayout을 출력 형식으로 사용하는 경우 다음과 같이 패턴 형식을 지정할 수 있다.
 //	  ex) log4j.appender.A1.layout.ConversionPattern=%5p [%t]%c - %m%n
 //		%5p : 로그 레벨을 5자리 문자로 출력

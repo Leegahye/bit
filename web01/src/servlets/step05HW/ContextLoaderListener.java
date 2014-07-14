@@ -27,8 +27,18 @@ public class ContextLoaderListener implements ServletContextListener{
 	      PersonDao personDao = new PersonDao();
 	      personDao.setDbConnectionPool(dbConnectionPool);
 	      
-	      ctx.setAttribute("dbConnectionPool", dbConnectionPool);
-	      ctx.setAttribute("personDao", personDao);
+	      PersonList personList = new PersonList();
+	      personList.setPersonDao(personDao);
+	      ctx.setAttribute("/score/step05HW/list.do", personList);
+	      
+	      PersonAdd personAdd = new PersonAdd();
+	      personAdd.setPersonDao(personDao);
+	      ctx.setAttribute("/score/step05HW/add.do", personAdd);
+	      
+	      PersonDelete personDelete = new PersonDelete();
+	      personDelete.setPersonDao(personDao);
+	      ctx.setAttribute("/score/step05HW/delete.do", personDelete);
+	      
 	      
 	    } catch (Exception e) {
 	      e.printStackTrace();

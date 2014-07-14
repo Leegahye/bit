@@ -1,55 +1,24 @@
 package servlets.step05HW;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-//@WebServlet("/score/step04HW/delete")
-public class PersonDelete  extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+public class PersonDelete  implements PageController {
   
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    int no = Integer.parseInt(request.getParameter("no"));
+	PersonDao personDao;
+	
+	public void setPersonDao(PersonDao personDao){
+		this.personDao = personDao;
+	}
+	
+	@Override
+	public String execute(Map<String, String[]> params,
+			Map<String, Object> model) throws Exception {
+
+    int no = Integer.parseInt(params.get("no")[0]);
     
-    try {
-      ServletContext ctx = this.getServletContext();
-      PersonDao scoreDao = (PersonDao)ctx.getAttribute("personDao");
-      scoreDao.delete(no);
+      personDao.delete(no);
       
-      response.setContentType("text/html; charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset=\"UTF-8\">");
-      
-      // 웹 브라우저에게 1초 후에 list를 요청할 것을 알리는 명령 심는다.
-      out.println("<meta http-equiv='Refresh' content='1; url=list'>");
-      
-      out.println("<title>회원정보 삭제</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<p>삭제 성공입니다.</p>");
-      
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/copyright");
-      rd.include(request, response);
-      
-      out.println("</body>");
-      out.println("</html>");
-    } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
-      request.setAttribute("error", e);
-      rd.forward(request, response);
-    }
+      return "redirect:list.do";
   }
 
 }

@@ -1,65 +1,31 @@
 package servlets.step05HW;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-//@WebServlet("/score/step04HW/update")
-public class PersonUpdate extends HttpServlet {
-  private static final long serialVersionUID = 1L;
-  
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    int no = Integer.parseInt(request.getParameter("mno"));
+public class PersonUpdate implements PageController {
+ 
+	PersonDao personDao;
+	
+	public void setPersonDao(PersonDao personDao){
+		this.personDao=personDao;
+	}
+	@Override
+	public String execute(Map<String, String[]> params, Map<String, Object> model)
+			throws Exception {
+    int no = Integer.parseInt(params.get("mno")[0]);
     
-    try {
-      ServletContext ctx = this.getServletContext();
-      PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
-      Person person = personDao.selectOne(no);
-      
-      response.setContentType("text/html; charset=UTF-8");
-      
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/personupdateform.jsp");
-      request.setAttribute("person", person);
-      rd.include(request, response);
-      
-    } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
-      request.setAttribute("error", e);
-      rd.forward(request, response);
-    }
-  }
-  
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-   
-    Person person = new Person();
-    person.setNo(Integer.parseInt(request.getParameter("mno")));
-    person.setName(request.getParameter("name"));
-    person.setEmail(request.getParameter("email"));
-    person.setTel(request.getParameter("tel"));
-    person.setPw(request.getParameter("pwd"));
-    
-    ServletContext ctx = this.getServletContext();
-    PersonDao personDao = (PersonDao)ctx.getAttribute("personDao");
-    
-    try {
-      personDao.update(person);
-      response.sendRedirect("list");
-      
-    } catch (Exception e) {
-      RequestDispatcher rd = request.getRequestDispatcher("/score/step04HW/error");
-      request.setAttribute("error", e);
-      rd.forward(request, response);
+    if(params.get("name") == null){
+    	model.put("person", personDao.selectOne(Integer.parseInt(params.get("no")[0])));
+    	return "/score/step05HW/personupdateform.jsp";
+    }else{
+    	Person person = new Person();
+	    person.setNo(Integer.parseInt(params.get("mno")[0]));
+	    person.setName(params.get("name")[0]);
+	    person.setEmail(params.get("email")[0]);
+	    person.setTel(params.get("tel")[0]);
+	    person.setPw(params.get("pwd")[0]);
+	    
+	    return "redirect:list.do";
     }
   }
 }
