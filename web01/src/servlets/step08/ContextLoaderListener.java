@@ -25,15 +25,15 @@ public class ContextLoaderListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
     logger.debug("contextInitialized 호출됨...");
     try {
-      ctx = event.getServletContext();
+      ctx = event.getServletContext(); //ServletContext보관소 주소를 불러와서 저장한다.
       
-      prepareMyBatis();
+      prepareMyBatis();//MyBatis sqlSessionFactory 객체 준비
      
-      String[] classnames = getClassNames();
+      String[] classnames = getClassNamesFromPackage(); //패키지로부터 클래스이름 가져오기
       
-      prepareObjects(classnames);
+      prepareObjectsForClassWithComponentAnnotation(classnames);//컴포넌트 애노테이션이 붙은 객체 준비하기(인스턴스생성)
       
-      prepareDependancies();
+      prepareDependancies();//생성된 인스턴스들의 의존객체를 setter메소드를 통해 주입한다.
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -43,16 +43,18 @@ public class ContextLoaderListener implements ServletContextListener {
 	private void prepareMyBatis() throws Exception {
 		String resource = "servlets/step08/mybatis-config.xml";
 	     
+		//SqlSessionFactory 객체를 만들어서 servletContext에 보관한다.
 	      InputStream inputStream = Resources.getResourceAsStream(resource);
 	      SqlSessionFactory sqlSessionFactory = 
 	          new SqlSessionFactoryBuilder().build(inputStream);
 	      ctx.setAttribute("sqlSessionFactory", sqlSessionFactory);
 	}
 
-	private String[] getClassNames() throws Exception{
+	private String[] getClassNamesFromPackage() throws Exception{
 		logger.debug(ctx.getRealPath("/WEB-INF/classes/servlets/step08"));
 	    File classDir = new File(ctx.getRealPath("/WEB-INF/classes/servlets/step08"));
 	      
+	    //list-> 모든 파일중 .class 인 파일만 리턴
 		return classDir.list(new FilenameFilter() { //익명이너클래스
 			@Override
 			public boolean accept(File dir, String name) {
@@ -63,17 +65,18 @@ public class ContextLoaderListener implements ServletContextListener {
 	   });
 	}
 		
-	private void prepareObjects(String[] classnames) throws Exception{
+	//추출한 .class 파일에서 Component가 붙은 클래스에 대해서만 인스턴스 준비
+	private void  prepareObjectsForClassWithComponentAnnotation(String[] classnames) throws Exception{
 		Class<?> clazz = null;
 		Object instance = null;
 		Component compAnno = null;
 		
 		 for(String classname : classnames){
     	   clazz = loadClass(classname);
-    	   compAnno = getComponentAnnotation(clazz);
+    	   compAnno = getComponentAnnotation(clazz);//컴포넌트 애노테이션 추출
     	   if(compAnno != null){    		   
-    		   instance = createInstance(clazz);
-    		   ctx.setAttribute(compAnno.value(), instance);
+    		   instance = createInstance(clazz); //인스턴스 생성
+    		   ctx.setAttribute(compAnno.value(), instance);//애노테이션으로부터 값을 꺼내서 =>ServletContext에 컴포넌트이름(compAnno), 인스턴스주소(value()) 를 보관소에 저장
     	   }    	  
 		 }
 	}
@@ -92,17 +95,18 @@ public class ContextLoaderListener implements ServletContextListener {
 	}
 	
   	private void injectDependancy(Object instance) throws Exception{
+  		//메서드 목록 가져오기.
   		Method[] methods = instance.getClass().getMethods();
   		Object dependancy = null;
   		for(Method method : methods){
   			if(method.getName().startsWith("set") 
-  					&& method.getParameterCount() == 1){//setter메서드인 경우
+  					&& method.getParameterCount() == 1){//메서드가 setter메서드인 경우
   				logger.debug(instance.getClass().getSimpleName() + " : " + method.getName());
   				dependancy = findDependancyFromServletContext(
-  						method.getParameters()[0].getType());
+  						method.getParameters()[0].getType()/*파라미터타입과 일치하는 객체 찾기*/);
   				if(dependancy != null){ //setter 메서드의 의존객체를 찾았다면, setter 호출!
   					logger.debug(method.getName() + " 호출");
-  					method.invoke(instance, dependancy);
+  					method.invoke(instance, dependancy); //(인스턴스주소,파라미터객체)주입
   				}
   			}
   		}
