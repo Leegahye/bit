@@ -1,7 +1,6 @@
 package org.gradle;
 
 import org.apache.commons.collections.list.GrowthList;
-/*이건 테스트에요*/
 
 public class Person {
     private final String name;
@@ -13,10 +12,5 @@ public class Person {
 
     public String getName() {
         return name;
-    }
-    public void m(){
-    	switch("okok"){
-    		
-    	}
     }
 }
