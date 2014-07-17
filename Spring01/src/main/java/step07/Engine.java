@@ -1,5 +1,8 @@
 package step07;
 
+import org.springframework.stereotype.Component;
+
+@Component("engine")
 public class Engine {
 	String type;
 	int cc;

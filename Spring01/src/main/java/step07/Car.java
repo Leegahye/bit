@@ -3,7 +3,11 @@ package step07;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Car4 {
+import org.springframework.stereotype.Component;
+
+//@Component(value="car") 
+@Component("car") //value 속성 이름 생략 가능
+public class Car {
   String  maker;
   String  model;
   int     capacity;
@@ -12,17 +16,17 @@ public class Car4 {
   Map<String,Object> options;
 
 
-  public Car4(){
+  public Car(){
 	  System.out.println("Car()호출");
   }
   
-  public Car4(String maker , String model){
+  public Car(String maker , String model){
 	  System.out.println("Car(maker , model)호출");
 	  this.maker = maker;
 	  this.model = model;
   }
   
-  public Car4(String maker , String model, int capacity){
+  public Car(String maker , String model, int capacity){
 	  this(maker,model);
 	  System.out.println("Car(maker , model, capacity)호출");
 	  this.capacity = capacity;
