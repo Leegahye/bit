@@ -110,8 +110,6 @@ public class Score implements Serializable  {
 		return "Score [no=" + no + ", name=" + name + ", kor=" + kor + ", eng="
 				+ eng + ", math=" + math + ", execDate=" + execDate + "]";
 	}
-	
-	
 }
 
 
