@@ -5,7 +5,7 @@ import java56.dao.ScoreDao;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 /*
@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 
  * 파라미터의 기본 값을 설정하고 싶으면  @Param 애노테이션을 
  */
-@Component("/score/step01/list.do")
+@Controller
+//@RequestMapping("/score/step01/list.do")
+//@RequestMapping(value="/score/step01/list.do")//가능한 확장자 명은 생략하라!
+//@RequestMapping("/score/step01/list") //value속성명 생략
+//메서드 호출에만 선언해도 된다.
 public class ScoreList{
   static Logger logger = Logger.getLogger(ScoreList.class);
   
@@ -27,7 +31,9 @@ public class ScoreList{
    *  => 프런트 컨트롤러는 메서드를 호출할 때 파라미터 이름에 해당하는 요청정보를 찾아서 넣어준다.
    *  => 그리고 문자열을 자동으로 파라미터 타입으로 변경하여 넣어준다.
    */
-  @RequestMapping
+  
+  //@RequestMapping//클래스 선언앞에 @RequestMapping(url)이 선언되어있다면 , 여기서는 URL 생략함.
+  @RequestMapping("/score/step01/list") //클래스 선언앞에 @RequestMapping 없다면, 여기서 URL선언
   public String execute(@RequestParam(defaultValue="1")int pageNo, 
 		  				@RequestParam(defaultValue="3")int pageSize,
 		  				/*@RequestParam(required=false)*/String order,
