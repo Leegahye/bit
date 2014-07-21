@@ -1,46 +1,56 @@
 package java56.controller;
 
-import java.util.Map;
 import java56.dao.ScoreDao;
+
+import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+
 /*
- * 스프링의 프런트 컨트롤러(DispatcherServlet)는
- * 클라이언트가 보낸 요정정보를 페이지 컨트롤러의 메서드를 호출할 때 파라미터로 넘겨 준다. 
+ * Request Handler(요청 처리 메서드) 작성
+ * 1) 메서드 파라미터의 타입으로 가능한 것:
+ * 		ServletRequest, ServletResponse, HttpServletRequest, HttpServletRestonse
+ * 		HttpSession, InputStream/OutputStream(바이너리 데이터를 직접 읽고 쓸때),
+ * 		Map/Model/ModelMap(JSP에 값을 전달할 때 사용)
  * 
- * 파라미터의 기본 값을 설정하고 싶으면  @Param 애노테이션을 
+ * 2) 메서드의 리턴 타입으로 가능한 것:
+ * 		String(JSP URL 또는 콘텐츠), Model(JSP에 값을 전달할 때 사용	),
+ * 		ModelAndView(JSP에 리턴할 값과 JSP URL을 지정)
+ * 		View(JSP URL을 지정할때),
+ * 		HttpEntity(JSP를 경유하지 않고 직접 콘텐츠를 출력할 때)
  */
 @Controller
-//@RequestMapping("/score/step01/list.do")
-//@RequestMapping(value="/score/step01/list.do")//가능한 확장자 명은 생략하라!
-//@RequestMapping("/score/step01/list") //value속성명 생략
-//메서드 호출에만 선언해도 된다.
 public class ScoreList{
   static Logger logger = Logger.getLogger(ScoreList.class);
   
   @Autowired
   ScoreDao scoreDao;
   
-  /*
-   * 클라이언트가 보낸 요청정보를 받고 싶다면, 메서드의 파라미터로 선언하라!
-   * 단, 파라미터 이름은 요청 정보의 이름과 같게 하라!
-   *  => 프런트 컨트롤러는 메서드를 호출할 때 파라미터 이름에 해당하는 요청정보를 찾아서 넣어준다.
-   *  => 그리고 문자열을 자동으로 파라미터 타입으로 변경하여 넣어준다.
+  /* 페이지 컨트롤러에서 직접 문자열을 출력 : HttpEntity
    */
-  
-  //@RequestMapping//클래스 선언앞에 @RequestMapping(url)이 선언되어있다면 , 여기서는 URL 생략함.
   @RequestMapping("/score/step01/list") //클래스 선언앞에 @RequestMapping 없다면, 여기서 URL선언
-  public String execute(@RequestParam(defaultValue="1")int pageNo, 
-		  				@RequestParam(defaultValue="3")int pageSize,
-		  				/*@RequestParam(required=false)*/String order,
-		  				/*@RequestParam(required=false)*/String columnName,
-		  				/*@RequestParam(required=false)*/String orderType,
-		  				Map<String, Object> model)throws Exception{
+  @ResponseBody
+  public HttpEntity<String> execute(
+		  	@RequestParam(defaultValue="1")int pageNo, 
+		  	@RequestParam(defaultValue="3")int pageSize,
+		  	String order,
+		  	String columnName,
+		  	String orderType,
+		  	ServletResponse response
+		 )throws Exception{
     logger.info("성적 목록 가져오기.....");
+    
+    ModelAndView mv = new ModelAndView();
    
     int countAll = scoreDao.countAll();
     int totalPage = countAll / pageSize;
@@ -49,19 +59,33 @@ public class ScoreList{
     }
     
     if (order != null) {
-      model.put("order", order);
-      model.put("scores", scoreDao.list(pageNo, pageSize, order));
+    	mv.addObject("order", order);
+    	mv.addObject("scores", scoreDao.list(pageNo, pageSize, order));
       
     } else if (columnName != null) {
-      model.put("scores", scoreDao.list(pageNo, pageSize, columnName, orderType));
+    	mv.addObject("scores", scoreDao.list(pageNo, pageSize, columnName, orderType));
     } else {
-      model.put("scores", scoreDao.list(pageNo, pageSize, null));
+    	mv.addObject("scores", scoreDao.list(pageNo, pageSize, null));
     }
-    model.put("totalPage", totalPage);
-    model.put("pageNo", pageNo);
-    model.put("pageSize", pageSize);
+    mv.addObject("totalPage", totalPage);
+    mv.addObject("pageNo", pageNo);
+    mv.addObject("pageSize", pageSize);   
+    mv.setViewName("/score/step01/ScoreList.jsp");
     
-    return "/score/step01/ScoreList.jsp";
+    /*Map<String,Object> model = mv.getModel();
+    Object scores = model.get("scores");
+    Gson gson = new Gson();
+    return gson.toJson(scores);*/
+    
+    //요청 핸들러에서 직접 콘텐츠를 출력할 때는 다음 SetContextType()이 작동되지 않는다.
+    // => 해결책 : HttpEntity 객체를 리턴하라!
+    //response.setContentType("text/json; charSet=UTF-8");
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Content-Type", "text/plain; charset=UTF-8");
+    
+    return new HttpEntity<String>(
+    		new Gson().toJson(mv.getModel().get("scores")),
+    		headers);
   }
 
 }
