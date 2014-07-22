@@ -33,7 +33,12 @@ table td {
 </style>
 </head>
 <body>
-<h1>성적 관리(Front Controller 도입)</h1>
+<div>
+<c:if test="${not empty sessionScope.loginUser}">
+${loginUser.name}(${loginUser.email})
+</c:if>
+</div>
+<h1>성적 관리</h1>
 <a href='scoreform.html'>추가</a>
 <table>
 <tr>
