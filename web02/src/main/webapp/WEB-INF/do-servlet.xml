@@ -13,6 +13,7 @@
         http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
         
   <!-- *.do 요청을 처리하는 페이지 컨트롤러 생성 -->
   <context:component-scan base-package="java56.controller"/>
@@ -29,6 +30,11 @@
       <property name="suffix" value=""/>
    </bean>
  
+ <!-- 멀티파트 파일업로드 처리기 등록 -->
+  <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="5000000"/>
+  </bean>
 </beans>
 
 

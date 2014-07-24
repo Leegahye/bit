@@ -11,6 +11,7 @@
     <result column="email" property="email"/>
     <result column="tel" property="tel"/>
     <result column="valid" property="valid"/>
+    <result column="photo_path" property="photoPath"/>
     <result column="postno" property="postNo"/>
     <result column="bas_addr" property="baseAddress"/>
     <result column="det_addr" property="detailAddress"/>
@@ -27,6 +28,13 @@
 			from students s left outer join members m using(mno)
 			where email=#{email} and pwd=#{password}
 	 </select>
+	 <insert id="insert" parameterType="student">
+	   insert into students (
+	           MNO, POST_NO,BAS_ADDR, DET_ADDR,SCHOOL,
+	           GRADE, MAJOR, WORKING, COMPANY, COMP_CODE)
+    values (#{no},#{postNo},#{baseAddress},#{detailAddress},#{school},
+            #{grade},#{major},#{working},#{company},#{companyNo})
+	 </insert>
 </mapper>
 
 
