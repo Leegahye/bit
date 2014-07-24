@@ -1,4 +1,4 @@
-package java56.controller;
+/*package java56.controller;
 
 import java56.dao.StudentDao;
 import java56.vo.Student;
@@ -36,3 +36,4 @@ public class AuthControl01 {
 		}
 	}
 }
+*/

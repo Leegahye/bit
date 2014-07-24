@@ -10,5 +10,6 @@ import java56.vo.Student;
 public interface StudentService {
 	
 	void signup(Student student) throws Exception;
+	Student exist(String email, String password)throws Exception;
 
 }
