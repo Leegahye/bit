@@ -9,9 +9,13 @@
 //1.inner함수 => 클로저(closure)
 function makeCalcFunc(op){
 	if(op == "plus"){
-		return function(a,b){return a+b;};
+		return function(a,b){
+			return a+b;
+		};
 	}else if(op == "minus"){
-		return function(a,b){return a-b;};
+		return function(a,b){
+			return a-b;
+			};
 	}else if(op == "expo"){
 		return function(base,exp){
 			var r=1;

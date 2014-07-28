@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+//1. 객체에 속성과 함수 추가하기
+var calc = new Object();
+var calc = {
+		result: 0,
+		plus: function(value){
+			this.result += value;
+		},
+		minus: function(value){
+			this.result -= value;
+		},
+		multiple: function(value){
+			this.result *= value;
+		},
+		divide: function(value){
+			this.result /= value;
+		}
+}
+calc.result = 100;
+//연산자 콤마(,) : 명령어를 나열 => 나열된 순서대로 명령어를 실행한다.
+console.log((calc.plus(10), calc.result));
+console.log((calc.minus(10), calc.result));
+console.log((calc.multiple(10), calc.result));
+console.log((calc.divide(10), calc.result));
+
+//2. 같은 종류의 객체를 여러 개 생성할 경우 생성자 함수를 사용하는 것이 좋다.
+function Calculator(){
+	this.result = 0;
+	this. plus = function(value){
+		this.result += value;
+	};
+	this.minus = function(value){
+		this.result -= value;
+	};
+	this.multiple = function(value){
+		this.result *= value;
+	};
+	this.divide = function(value){
+		this.result /= value;
+	};
+}
+
+var calc2 = new Calculator();
+var calc3 = new Calculator();
+
+calc2.plus(10);
+calc3.plus(20);
+calc2.multiple(3);
+calc3.divide(5);
+
+console.log(calc2.result);
+console.log(calc3.result);
+</script>
+</body>
+</html>

@@ -41,12 +41,18 @@ console.log(plus4(10,20));
 console.log(plus5(20,30));//이 문장은 plus5() 함수 선언문 보다 늦게 실행한다. 결론=> plus5() 호출가능
 console.log(plus6(20,30));//이 문장은 var plus6 = ... 문장보다 먼저 실행한다. 결론=> plus6() 호출오류
 
-function plus5(a,b){return a+b;}
-var plus6 = function(a,b){return a+b;};
+function plus5(a,b){
+	return a+b;
+}
+var plus6 = function(a,b){
+	return a+b;
+};
 </script>
 
 <script>
-function plus7(a,b) {return a+b};
+function plus7(a,b) {
+	return a+b
+};
 console.log(plus5(20,30)); //이전<script>태그에서 만든 함수는 현재 호출할 수 잇다.
 </script>
 </body>
