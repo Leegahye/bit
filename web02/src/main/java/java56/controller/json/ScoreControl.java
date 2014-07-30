@@ -1,4 +1,4 @@
-package java56.controller;
+package java56.controller.json;
 
 import java56.dao.ScoreDao;
 import java56.vo.Score;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/score/step02")
+@RequestMapping("/score")
 public class ScoreControl {
   static Logger logger = Logger.getLogger(ScoreControl.class);
   
@@ -56,36 +56,48 @@ public class ScoreControl {
     mv.addObject("pageNo", pageNo);
     mv.addObject("pageSize", pageSize);
     
-    mv.setViewName("/score/step02/ScoreList.jsp");
+    mv.setViewName("/score/json/ScoreList");
     
     return mv;
   }
-  
+
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public String add(Score score)
       throws Exception {
     scoreDao.insert(score);
-    return "redirect:list.do";
+    return "/score/json/scoreadd";
   }
   
   @RequestMapping(value="/delete", method=RequestMethod.GET)
-  public String delete(int no)
+  public String delete(int no, Model model)
       throws Exception {
-    scoreDao.delete(no);
-    return "redirect:list.do";
+    int count = scoreDao.delete(no);
+    if (count > 0) {
+      model.addAttribute("status", "success");
+    } else {
+      model.addAttribute("status", "failure");
+    }
+    return "/score/json/scoredelete";
   }
   
   @RequestMapping(value="/update", method=RequestMethod.GET)
   public String detail(int no, Model model)
       throws Exception {
     model.addAttribute("score", scoreDao.selectOne(no));
-    return "/score/step02/scoreupdateform.jsp";
+    return "/score/json/scoreupdateform";
   }
   
   @RequestMapping(value="/update", method=RequestMethod.POST)
   public String update(Score score)
       throws Exception {
     scoreDao.update(score);
-    return "redirect:list.do";
+    return "/score/json/scoreupdate";
   }
 }
+
+
+
+
+
+
+

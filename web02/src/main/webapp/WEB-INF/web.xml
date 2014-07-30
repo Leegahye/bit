@@ -35,28 +35,43 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	
+	 <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>*.json</url-pattern>
+  </filter-mapping>
 
 <!-- 기존의 자체 개발한 DispatcherServlet을 스프링 클래스로 대체함 
     => 스프링에서 제공하는 프론트 컨트롤러를 사용할 때는, 페이지 컨트롤러를 스프링 규격에 맞추어 작성해야 한다.
     => 스프링의 프런트 컨트롤러는 자신이 사용할 객체(페이지컨트롤러 등등)를 자체 관리한다.
     => /WEB-INF/서블릿이름-servlet.xml 파일에 자신이 사용할 객체를 설정한다.
 -->
-  <servlet>
+
+<servlet>
     <servlet-name>do</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!-- 프런트 컨트롤러가 사용할 스프링 설정파일이 /WEB-INF/서블릿이름-servlet.xml로 되어 있다면
+    <!-- 프런트 컨트롤러가 사용할 스프링 설정파일이 /WEB-INF/서블릿이름-servlet.xml로 되어 있다면 
       굳이 경로를 설정할 필요가 없다. 자동으로 찾는다.-->
-   <!--
+    <!--      
     <init-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/do-servlet.xml</param-value>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/do-servlet.xml</param-value>
     </init-param>
     -->
-    
   </servlet>
+  <servlet>
+    <servlet-name>json</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>do</servlet-name>
     <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>json</servlet-name>
+    <url-pattern>*.json</url-pattern>
   </servlet-mapping>
 
 	<!-- URL 경로에 자원 이름을 구체적으로 지정하지 않으면 다음 태그에 정의된 파일을 찾아서 보낸다. -->

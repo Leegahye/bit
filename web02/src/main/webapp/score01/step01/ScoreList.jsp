@@ -33,12 +33,7 @@ table td {
 </style>
 </head>
 <body>
-<div>
-<c:if test="${not empty sessionScope.loginUser}">
-${loginUser.name}(${loginUser.email})
-</c:if>
-</div>
-<h1>성적 관리</h1>
+<h1>성적 관리(Front Controller 도입)</h1>
 <a href='scoreform.html'>추가</a>
 <table>
 <tr>
@@ -132,7 +127,7 @@ ${pageNo}
 <c:otherwise>[다음]</c:otherwise>
 </c:choose>
 </div>
-<jsp:include page="/score/step02/copyright.jsp"/>
+<jsp:include page="/score/step01/copyright.jsp"/>
 
 </body>
 </html>

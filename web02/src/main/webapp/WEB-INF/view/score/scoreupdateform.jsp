@@ -21,7 +21,7 @@
 <input type="submit" value="변경">
 </form>
 
-<jsp:include page="/score/step02/copyright.jsp"/>
+<jsp:include page="/copyright.jsp"/>
 
 </body>
 </html>
